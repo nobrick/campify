@@ -1,0 +1,13 @@
+/*
+ *= require font-awesome
+ *= require_tree .
+ *= require_self
+ */
+
+@import 'font-awesome';
+@import 'bootstrap';
+
+.field_with_errors {
+  display: inline;
+  color: #e84141;
+}
