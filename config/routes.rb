@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  namespace :uni do
+    devise_for :users, module: 'uni/users', path: 'account'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    meta[name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"]
+    title
+      | Together
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    nav#brand_navbar.navbar.navbar-default[role="navigation"]
+      .container-fluid
+        .navbar-header
+          a.navbar-brand.logo_brand[href="/"]
+            span.logo
+              = t(:logo_name)
+          a.visible-xs-inline-block.btn.navbar-btn.pull-right.nav_toggle[type="button" data-toggle="collapse" data-target="#navbar-collapse"]
+            span.sr-only
+              | Toggle navigation
+            = fa_icon('magic', class: 't-navbar-button')
+        #navbar-collapse.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            - if user_signed_in?
+              li
+                = link_to "Hi, #{current_user.username}", '#'
+              li.divider
+              li
+                = link_to '注销', destroy_user_session_path, method: :delete
+            - else
+              li
+                = link_to t(:sign_up), new_uni_user_registration_path
+              li
+                = link_to t(:sign_in), new_uni_user_session_path
+    .main
+      = yield
