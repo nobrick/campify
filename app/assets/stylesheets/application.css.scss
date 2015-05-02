@@ -11,3 +11,13 @@
   display: inline;
   color: #e84141;
 }
+
+.t-navbar-button {
+  color: red;
+  opacity: 0.5;
+  font-size: 1.4em;
+  &:hover {
+    color: red;
+    opacity: 1;
+  }
+}
