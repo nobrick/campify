@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: campify_development
+  username: username1
+  password: password1
+
+test:
+  <<: *default
+  database: campify_test
+  username: username2
+  password: password2
+
+production:
+  <<: *default
+  database: campify_production
+  username: username3
+  password: password3
