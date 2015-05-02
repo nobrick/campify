@@ -5,38 +5,18 @@ zh-CN:
   activerecord:
     models:
       user: '用户'
-      cinema: '影院'
-      movie: '电影'
-      showtime: '电影场次'
-      shake: '大握手'
-      shake_bonus: '活动奖励'
     attributes:
-      cinema:
-        identity: '标识符'
-        name: '名称'
-        location: '地址'
-      movie:
-        identity: '标识符'
-        title: '名称'
-      shake:
-        identity: '标识符'
-        bonus: '活动奖励'
-        proposer: '发起人'
-      shake_bonus:
-        identity: '标识符'
-        promotional: '促销活动'
-        starts_at: '开始时间'
-        ends_at: '过期时间'
-        avail_bonuses: '当前可用奖励数'
-        total_handshakes_for_bonus: '获得奖励所需成功握手数'
-      showtime:
-        identity: '标识符'
-        movie: '电影'
-        cinema: '影院'
-        starts_at: '放映开始时间'
-        ends_at: '放映结束时间'
+      user:
+        username: '用户名'
+        bio: '个性签名'
+        coins: '积分'
+        password: '密码'
+        password_confirmation: '密码确认'
+        current_password: '当前密码'
 
   sign_in: '登录'
   sign_up: '新用户'
   password: '密码'
   logo_name: 'Campify'
+  update: '更新'
+  back: '返回'
