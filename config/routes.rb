@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root 'home#index'
+  get 'home/index'
+
   namespace :uni do
     devise_for :users, module: 'uni/users', path: 'account'
   end
