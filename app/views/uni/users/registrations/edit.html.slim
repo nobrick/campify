@@ -1,0 +1,51 @@
+.container
+  .row
+    .col-md-6.col-md-offset-3
+      .panel.panel-success
+        .panel-heading
+          | 编辑个人资料
+        .panel-body
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+            = render 'shared/error_messages', form: f
+            .form-group
+              = f.label :username
+              br
+              = f.text_field :username
+            .form-group
+              = f.label :email
+              br
+              = f.email_field :email, autofocus: true
+            - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+              div
+                | Currently waiting confirmation for: 
+                = resource.unconfirmed_email
+            .form-group
+              = f.label :password
+              i
+                | （如果您不希望更改密码，请保持空白）
+              br
+              = f.password_field :password, autocomplete: "off"
+            .form-group
+              = f.label :password_confirmation
+              br
+              = f.password_field :password_confirmation, autocomplete: "off"
+            .form-group
+              = f.label :bio, '个性签名'
+              br
+              = f.text_field :bio
+            .form-group
+              = f.label :current_password
+              i
+                | （我们需要您当前的密码来确认更改）
+              br
+              = f.password_field :current_password, autocomplete: "off"
+            div
+              = f.submit t(:update), class: 'btn btn-success'
+      .panel.panel-danger
+        .panel-heading
+          | 注销我的账号
+        .panel-body
+            | 不开心？
+            p
+            = button_to '删除我的账号', registration_path(resource_name), class: 'btn btn-danger', data: { confirm: '确实要删除你的账号吗？所有数据将被删除。' }, method: :delete
+      = link_to t(:back), :back
