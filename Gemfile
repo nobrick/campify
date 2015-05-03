@@ -32,6 +32,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'unicorn'
 
 group :development do
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-rvm'
   gem 'capistrano-rails', '~> 1.1'
   gem 'better_errors'
   gem 'binding_of_caller'
