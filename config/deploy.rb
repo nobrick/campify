@@ -2,16 +2,15 @@
 # lock '3.4.0'
 
 set :application, 'campify'
-set :repo_url, 'git@together.mingqu.me:/home/git/repos/campify.git'
-set :linked_files, %w{config/database.yml config/secrets.yml config/unicorn.rb}
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_files, %w{ config/database.yml config/secrets.yml config/unicorn.rb config/wechat.yml }
+set :linked_dirs, %w{ log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system }
 # set :linked_dirs, fetch(:linked_dirs).push(%w{public/assets})
 set :keep_releases, 5
 set :rails_env, :production
 set :branch, ENV['cap_branch'] || 'master'
 
 set :rvm_type, :user
-set :rvm_ruby_version, 'ruby-2.2.0'
+# set :rvm_ruby_version, 'ruby-2.2.2'
 
 # To use current git branch, uncomment following code
 # current_branch = `git branch`.match(/\* (\S+)\s/m)[1]
@@ -60,7 +59,8 @@ namespace :deploy do
   task :bundle_install do
     on roles(:web) do
       within release_path do
-        with rails_env: :production, use_cn_gem_source: 1 do
+        # with rails_env: :production, use_cn_gem_source: 1 do
+        with rails_env: :production do
           # execute :bundle #, '--without development test'
           # execute :bundle, "install --path #{shared_path}/bundle --without development test --deployment --quiet"
           execute :bundle, "install --path #{shared_path}/bundle --without development test --deployment"
