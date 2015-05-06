@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   namespace :uni do
     devise_for :users, module: 'uni/users', path: 'account'
   end
+
+  namespace :api do
+    namespace :v1 do
+      resource :wechat, only: [ :show, :create ]
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

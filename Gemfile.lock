@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/skinnyworm/wechat-rails
+  revision: d7ad861645181dbb925c6f01c3b42e74e92d6211
+  specs:
+    wechat-rails (0.1.1)
+      nokogiri (>= 1.6.0)
+      rails (>= 3.2.14)
+      rest-client
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -96,6 +105,8 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    domain_name (0.5.24)
+      unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.5.2)
     factory_girl (4.5.0)
@@ -124,6 +135,8 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hitimes (1.2.2)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     i18n (0.7.0)
     jasmine (2.3.0)
       jasmine-core (~> 2.3)
@@ -158,6 +171,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
+    netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     notiffany (0.0.6)
@@ -210,6 +224,10 @@ GEM
       json (~> 1.4)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -332,3 +350,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   web-console (~> 2.0)
+  wechat-rails!
