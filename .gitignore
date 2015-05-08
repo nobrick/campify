@@ -34,3 +34,4 @@ public/assets
 
 # Ignore wechat tokens config.
 /config/wechat.yml
+/config/wechat
