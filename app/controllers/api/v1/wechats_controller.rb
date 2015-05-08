@@ -33,5 +33,13 @@ class Api::V1::WechatsController < ApplicationController
     request.reply.text("#{request[:Location_X]}, #{request[:Location_Y]}")
   end
 
+  on :event do |request, key|
+    case key
+    when 'EVERYDAY_CHECK'
+      request.reply.text '签到成功！'
+    else '没有这个菜单！'
+    end
+  end
+
   on :fallback, respond: 'fallback message'  
 end
