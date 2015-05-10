@@ -2,9 +2,17 @@ class Uni::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksControl
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
-  # You should also create an action method in this controller like this:
-  # def twitter
-  # end
+  def wechat
+    auth = request.env['omniauth.auth']
+    @user = User.find_by_omniauth(auth)
+    if @user
+      sign_in_and_redirect @user, :event => :authentication # This will throw if @user is not activated
+      set_flash_message(:notice, :success, :kind => 'Wechat') if is_navigational_format?
+    else
+      session['devise.wechat_data'] = auth
+      redirect_to new_uni_user_registration_url
+    end
+  end
 
   # More info at:
   # https://github.com/plataformatec/devise#omniauth

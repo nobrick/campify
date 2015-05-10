@@ -22,12 +22,16 @@
 # Ignore deploy config.
 /config/deploy
 
-# Ignore ctags file
+# Ignore ctags file.
 tags
 gen_tags
 
-# Ignore code coverage file
+# Ignore code coverage file.
 coverage
 
-# Miscellaneous
+# Miscellaneous.
 public/assets
+
+# Ignore wechat tokens config.
+/config/wechat.yml
+/config/wechat

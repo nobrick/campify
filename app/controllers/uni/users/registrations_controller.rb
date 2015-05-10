@@ -32,15 +32,16 @@ class Uni::Users::RegistrationsController < Devise::RegistrationsController
   # in to be expired now. This is useful if the user wants to
   # cancel oauth signing in/up in the middle of the process,
   # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
+  def cancel
+    session['devise.wechat_data'] = nil
+    super
+  end
 
   # protected
 
   # You can put the params you want to permit in the empty array.
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up) << :username << :email << :bio
+    devise_parameter_sanitizer.for(:sign_up) << :username << :email << :bio << :nickname
   end
 
   # You can put the params you want to permit in the empty array.
