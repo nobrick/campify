@@ -22,7 +22,7 @@ html
           ul.nav.navbar-nav.navbar-right
             - if uni_user_signed_in?
               li
-                = link_to "Hi, #{current_uni_user.username}", '#'
+                = link_to "Hi, #{current_uni_user.nickname || current_uni_user.username}", '#'
               li.divider
               li
                 = link_to '注销', destroy_uni_user_session_path, method: :delete

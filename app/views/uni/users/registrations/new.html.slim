@@ -3,7 +3,7 @@
     .col-md-6.col-md-offset-3
       .panel.panel-success
         .panel-heading
-          | 注册 
+          = registration_title
         .panel-body
           = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
             - # devise_error_messages!
@@ -17,6 +17,10 @@
               br
               = f.text_field :username
             .form-group
+              = f.label :nickname, '昵称'
+              br
+              = f.text_field :nickname
+            .form-group
               = f.label :password, '密码'
               br
               = f.password_field :password, autocomplete: "off"
@@ -29,5 +33,5 @@
               br
               = f.text_field :bio
             div
-              = f.submit "注册", class: 'btn btn-success'
+              = f.submit registration_title, class: 'btn btn-success'
           = render 'uni/users/shared/links'

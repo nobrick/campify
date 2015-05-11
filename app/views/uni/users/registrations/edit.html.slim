@@ -15,6 +15,10 @@
               = f.label :email
               br
               = f.email_field :email, autofocus: true
+            .form-group
+              = f.label :nickname
+              br
+              = f.text_field :nickname
             - if devise_mapping.confirmable? && resource.pending_reconfirmation?
               div
                 | Currently waiting confirmation for: 

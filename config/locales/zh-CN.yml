@@ -8,6 +8,7 @@ zh-CN:
     attributes:
       user:
         username: '用户名'
+        nickname: '昵称'
         bio: '个性签名'
         coins: '积分'
         password: '密码'
