@@ -1,6 +1,7 @@
 class Uni::Users::RegistrationsController < Devise::RegistrationsController
-  before_filter :configure_sign_up_params, only: [:create]
-# before_filter :configure_account_update_params, only: [:update]
+  before_filter :authorize_wechat, only: [ :new ]
+  before_filter :configure_sign_up_params, only: [ :create ]
+# before_filter :configure_account_update_params, only: [ :update ]
 
   # GET /resource/sign_up
   # def new
@@ -8,9 +9,26 @@ class Uni::Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    auth = session.delete WECHAT_SESSION_KEY
+    super do |user|
+      if auth
+        user.uid = auth['uid']
+        user.provider = auth['provider'] # wechat
+        # user.password = Devise.friendly_token[0,20]
+        info = auth['info']
+        user.gender = case info['sex']
+                      when 1 then 'male'
+                      when 2 then 'female'
+                      else nil
+                      end
+        user.province = info['province']
+        user.city = info['city']
+        user.country = info['country']
+        user.wechat_headimgurl = info['headimgurl']
+      end
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -33,7 +51,7 @@ class Uni::Users::RegistrationsController < Devise::RegistrationsController
   # cancel oauth signing in/up in the middle of the process,
   # removing all OAuth session data.
   def cancel
-    session['devise.wechat_data'] = nil
+    session[WECHAT_SESSION_KEY] = nil
     super
   end
 
