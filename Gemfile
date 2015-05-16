@@ -52,9 +52,12 @@ group :development, :test do
   gem 'spring'
   gem 'rspec-rails', '~> 3.2.0'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
   gem 'capybara'
+  gem 'poltergeist'
   gem 'pry-rails'
   gem 'jasmine'
+  gem 'launchy'
 end
 
 gem 'bootstrap-sass', '~> 3.3.3'
