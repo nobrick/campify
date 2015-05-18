@@ -6,12 +6,13 @@ class User < ActiveRecord::Base
   devise :omniauthable, omniauth_providers: [ :wechat ]
   attr_accessor :login
 
+  has_many :proposed_shows, class_name: 'Show', foreign_key: :proposer_id
+
   validates :username,
     presence: true,
     uniqueness: { case_sensitive: false },
     length: { in: 3..18 },
     format: { with: /\A(?![_\d])(?!.*_{2})[a-zA-Z0-9_]+(?<!_)\z/ }
-
   validates :password, length: { in: 6..128 }
   validates :bio, length: { maximum: 140 }
   validates :uid, uniqueness: { scope: :provider }, if: 'uid.present?'
