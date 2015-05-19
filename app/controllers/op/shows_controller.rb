@@ -30,7 +30,7 @@ class Op::ShowsController < ApplicationController
 
     respond_to do |format|
       if @show.save
-        format.html { redirect_to op_show_url(@show), notice: 'Show was successfully created.' }
+        format.html { redirect_to op_show_url(@show), notice: '创建活动成功。' }
         format.json { render :show, status: :created, location: @show }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class Op::ShowsController < ApplicationController
   def update
     respond_to do |format|
       if @show.update(show_params)
-        format.html { redirect_to op_show_url(@show), notice: 'Show was successfully updated.' }
+        format.html { redirect_to op_show_url(@show), notice: '更新活动成功。' }
         format.json { render :show, status: :ok, location: @show }
       else
         format.html { render :edit }
@@ -58,7 +58,7 @@ class Op::ShowsController < ApplicationController
   def destroy
     @show.destroy
     respond_to do |format|
-      format.html { redirect_to op_shows_url, notice: 'Show was successfully destroyed.' }
+      format.html { redirect_to op_shows_url, notice: '删除活动成功。' }
       format.json { head :no_content }
     end
   end
