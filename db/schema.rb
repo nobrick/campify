@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509114306) do
+ActiveRecord::Schema.define(version: 20150518045648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "shows", force: :cascade do |t|
+    t.string   "name"
+    t.string   "category"
+    t.text     "description"
+    t.integer  "proposer_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "shows", ["proposer_id"], name: "index_shows_on_proposer_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -55,4 +66,5 @@ ActiveRecord::Schema.define(version: 20150509114306) do
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "shows", "users", column: "proposer_id"
 end

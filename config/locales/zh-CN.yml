@@ -5,6 +5,7 @@ zh-CN:
   activerecord:
     models:
       user: '用户'
+      show: '活动'
     attributes:
       user:
         username: '用户名'
@@ -14,6 +15,11 @@ zh-CN:
         password: '密码'
         password_confirmation: '密码确认'
         current_password: '当前密码'
+      show:
+        name: '名称'
+        category: '类别'
+        description: '描述'
+        proposer: '发起人'
 
   sign_in: '登录'
   sign_up: '新用户'

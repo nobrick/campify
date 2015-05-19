@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'home/index'
 
+  # namespace for product operators
+  namespace :op do
+    resources :shows
+  end
+
+  # namespace for university students
   namespace :uni do
     devise_for :users, module: 'uni/users', path: 'account'
   end

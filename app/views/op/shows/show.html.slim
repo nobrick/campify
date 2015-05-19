@@ -1,0 +1,33 @@
+.container
+  .row
+    .col-md-8.col-md-offset-2
+      .panel.panel-success
+        .panel-heading
+          ' 活动
+          = @show.id
+          .pull-right
+            = link_to '编辑', edit_op_show_path(@show), class: 'btn-sm btn-primary'
+            '
+            = link_to '返回', op_shows_path, class: 'btn-sm btn-primary'
+        .panel-body
+          = render 'shared/flash_messages'
+          p
+            strong
+              ' 活动ID:
+            = @show.id
+          p
+            strong
+              ' 名称:
+            = @show.name
+          p
+            strong
+              ' 类别:
+            = @show.category
+          p
+            strong
+              ' 发起人:
+            = @show.proposer.username
+          p
+            strong
+              ' 描述:
+            = @show.description
