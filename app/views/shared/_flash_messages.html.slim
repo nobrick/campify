@@ -1,10 +1,12 @@
-- errors ||= form.try(:object).try(:errors) if defined? form
-- errors ||= model.try(:errors) if defined? model
-- if errors.any?
-  .alert.alert-warning.alert-dismissible
-    button.close[type="button" data-dismiss="alert" aria-label="Close"]
-      span[aria-hidden="true"]
-        | ×
-    - errors.full_messages.each do |message|
-      p
-        = message
+- [:success, :info, :warning, :danger, :alert, :notice].each do |type|
+  - if flash[type]
+    - case type
+    - when :alert  then style = :danger
+    - when :notice then style = :warning
+    - else style = type
+
+    = content_tag :div, class: "alert alert-#{style} alert-dismissible" do
+      button.close[type="button" data-dismiss="alert" aria-label="Close"]
+        span[aria-hidden="true"]
+          | ×
+      = flash[type]
