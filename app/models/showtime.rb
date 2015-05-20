@@ -1,0 +1,22 @@
+class Showtime < ActiveRecord::Base
+  belongs_to :show
+  after_initialize :default_values
+
+  validates :show, presence: true
+  validates :title, presence: true, length: { in: 1..30 }
+  validates :starts_at, presence: true
+  validates :ends_at, presence: true
+  validate :ends_at_must_be_after_starts_at
+
+  private
+
+  def default_values
+    ongoing = true if ongoing.nil?
+  end
+
+  def ends_at_must_be_after_starts_at
+    if ends_at.present? && ends_at < starts_at
+      errors.add(:ends_at, '必须大于活动开始时间')
+    end
+  end
+end

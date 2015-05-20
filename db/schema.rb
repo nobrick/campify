@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518045648) do
+ActiveRecord::Schema.define(version: 20150520120314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,22 @@ ActiveRecord::Schema.define(version: 20150518045648) do
   end
 
   add_index "shows", ["proposer_id"], name: "index_shows_on_proposer_id", using: :btree
+
+  create_table "showtimes", force: :cascade do |t|
+    t.integer  "show_id"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.boolean  "ongoing",     default: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "showtimes", ["ends_at"], name: "index_showtimes_on_ends_at", using: :btree
+  add_index "showtimes", ["ongoing"], name: "index_showtimes_on_ongoing", using: :btree
+  add_index "showtimes", ["show_id"], name: "index_showtimes_on_show_id", using: :btree
+  add_index "showtimes", ["starts_at"], name: "index_showtimes_on_starts_at", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -67,4 +83,5 @@ ActiveRecord::Schema.define(version: 20150518045648) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "shows", "users", column: "proposer_id"
+  add_foreign_key "showtimes", "shows"
 end
