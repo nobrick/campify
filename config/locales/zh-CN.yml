@@ -6,6 +6,7 @@ zh-CN:
     models:
       user: '用户'
       show: '活动'
+      showtime: '活动场次'
     attributes:
       user:
         username: '用户名'
@@ -20,7 +21,14 @@ zh-CN:
         category: '类别'
         description: '描述'
         proposer: '发起人'
-
+      showtime:
+        title: '标题'
+        show: '活动'
+        show_id: '活动ID'
+        description: '说明'
+        starts_at: '开始时间'
+        ends_at: '结束时间'
+        ongoing: '活动场次状态'
   sign_in: '登录'
   sign_up: '新用户'
   password: '密码'

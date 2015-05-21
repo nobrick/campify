@@ -1,6 +1,7 @@
 class Op::ShowtimesController < ApplicationController
   before_action :authenticate_admin
   before_action :set_showtime, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_hidden_show_id_field, only: [ :new, :edit, :update, :create ]
 
   # GET /op/showtimes
   # GET /op/showtimes.json
@@ -15,7 +16,9 @@ class Op::ShowtimesController < ApplicationController
 
   # GET /op/showtimes/new
   def new
-    @showtime = Showtime.new(show_id: params[:show_id])
+    show_id = params[:show_id]
+    @hidden_show_id_field ||= Show.exists?(show_id)
+    @showtime = Showtime.new(show_id: show_id)
   end
 
   # GET /op/showtimes/1/edit
@@ -66,6 +69,11 @@ class Op::ShowtimesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_showtime
       @showtime = Showtime.find(params[:id])
+    end
+
+    # Hide 'Show ID' field if necessary
+    def set_hidden_show_id_field
+      @hidden_show_id_field = !!params[:hidden_show_id_field]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

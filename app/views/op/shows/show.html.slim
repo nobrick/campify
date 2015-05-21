@@ -6,6 +6,8 @@
           ' 活动
           = @show.id
           .pull-right
+            = link_to '新建活动场次', new_op_showtime_path(show_id: @show.id), class: 'btn-sm btn-primary'
+            '
             = link_to '编辑', edit_op_show_path(@show), class: 'btn-sm btn-primary'
             '
             = link_to '返回', op_shows_path, class: 'btn-sm btn-primary'
