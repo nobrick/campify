@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # namespace for product operators
   namespace :op do
     resources :shows
+    resources :showtimes
   end
 
   # namespace for university students
