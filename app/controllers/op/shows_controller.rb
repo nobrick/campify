@@ -1,29 +1,29 @@
 class Op::ShowsController < ApplicationController
   before_action :authenticate_admin
-  before_action :set_show, only: [:show, :edit, :update, :destroy]
+  before_action :set_show, only: [ :show, :edit, :update, :destroy ]
 
-  # GET /shows
-  # GET /shows.json
+  # GET /op/shows
+  # GET /op/shows.json
   def index
     @shows = Show.all
   end
 
-  # GET /shows/1
-  # GET /shows/1.json
+  # GET /op/shows/1
+  # GET /op/shows/1.json
   def show
   end
 
-  # GET /shows/new
+  # GET /op/shows/new
   def new
     @show = Show.new
   end
 
-  # GET /shows/1/edit
+  # GET /op/shows/1/edit
   def edit
   end
 
-  # POST /shows
-  # POST /shows.json
+  # POST /op/shows
+  # POST /op/shows.json
   def create
     @show = Show.new(show_params)
     @show.proposer = current_uni_user
@@ -39,8 +39,8 @@ class Op::ShowsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /shows/1
-  # PATCH/PUT /shows/1.json
+  # PATCH/PUT /op/shows/1
+  # PATCH/PUT /op/shows/1.json
   def update
     respond_to do |format|
       if @show.update(show_params)
@@ -53,8 +53,8 @@ class Op::ShowsController < ApplicationController
     end
   end
 
-  # DELETE /shows/1
-  # DELETE /shows/1.json
+  # DELETE /op/shows/1
+  # DELETE /op/shows/1.json
   def destroy
     @show.destroy
     respond_to do |format|

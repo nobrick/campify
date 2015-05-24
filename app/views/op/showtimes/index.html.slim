@@ -1,0 +1,10 @@
+.container
+  .row
+    = render 'shared/flash_messages'
+    .panel.panel-success
+      .panel-heading
+        | 活动场次列表
+        .pull-right
+          = link_to '新建活动场次', new_op_showtime_path, class: 'btn-sm btn-primary'
+      .panel-body
+        = render 'list', showtimes: @showtimes
