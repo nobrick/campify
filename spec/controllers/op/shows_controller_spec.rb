@@ -12,7 +12,7 @@ RSpec.describe Op::ShowsController, type: :controller do
         params = { show: id_param, edit: id_param }
         [ :index, :new, :show, :edit ].each do |method|
           get method, params.fetch(method, {})
-          expect(response).to redirect_to(new_uni_user_session_path)
+          expect(response).to redirect_to home_index_path
         end
       end
 
