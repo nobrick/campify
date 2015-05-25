@@ -1,5 +1,8 @@
 class Showtime < ActiveRecord::Base
   belongs_to :show
+  has_many :enrollments
+  has_many :members, through: :enrollments, source: :user
+
   after_initialize :default_values
 
   validates :title, presence: true, length: { in: 1..30 }
