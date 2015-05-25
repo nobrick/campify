@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520120314) do
+ActiveRecord::Schema.define(version: 20150525044704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "enrollments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "showtime_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "enrollments", ["showtime_id"], name: "index_enrollments_on_showtime_id", using: :btree
+  add_index "enrollments", ["user_id"], name: "index_enrollments_on_user_id", using: :btree
 
   create_table "shows", force: :cascade do |t|
     t.string   "name"
@@ -82,6 +92,8 @@ ActiveRecord::Schema.define(version: 20150520120314) do
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "enrollments", "showtimes"
+  add_foreign_key "enrollments", "users"
   add_foreign_key "shows", "users", column: "proposer_id"
   add_foreign_key "showtimes", "shows"
 end
