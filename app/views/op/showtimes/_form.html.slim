@@ -1,43 +1,39 @@
-.container
-  .row
-    .col-md-6.col-md-offset-3
-      .panel.panel-success
-        .panel-heading
-          = title
+- content_for :panel_heading
+  = title
+  .pull-right
+    - if @showtime.persisted?
+      => link_to '显示', [ :op, @showtime ], class: 'btn-sm btn-primary'
+    = link_to '返回', op_showtimes_path, class: 'btn-sm btn-primary'
+- content_for :panel_body
+  = form_for [ :op, @showtime ] do |f|
+    = render 'shared/error_messages', form: f
+    = hidden_field_tag 'hidden_show_id_field' if @hidden_show_id_field
+    = auto_display_show_id_field
+      .field.form-group
+        - css_class_show_id = @showtime.errors.include?(:show) ? 'field_with_errors' : ''
+        = content_tag(:div, class: css_class_show_id)
+          = f.label :show_id
           .pull-right
-            - if @showtime.persisted?
-              => link_to '显示', [ :op, @showtime ], class: 'btn-sm btn-primary'
-            = link_to '返回', op_showtimes_path, class: 'btn-sm btn-primary'
-        .panel-body
-          = form_for [ :op, @showtime ] do |f|
-            = render 'shared/error_messages', form: f
-            = hidden_field_tag 'hidden_show_id_field' if @hidden_show_id_field
-            = auto_display_show_id_field
-              .field.form-group
-                - css_class_show_id = @showtime.errors.include?(:show) ? 'field_with_errors' : ''
-                = content_tag(:div, class: css_class_show_id)
-                  = f.label :show_id
-                  .pull-right
-                    = link_to '新建', new_op_show_path, class: 'btn-xs btn-success', target: '_blank'
-                    '
-                    = link_to '查看', op_shows_path, class: 'btn-xs btn-info', target: '_blank'
-                  br
-                = f.text_field :show_id, class: 'form-control'
-            .field.form-group
-              = f.label :title
-              = f.text_field :title, class: 'form-control'
-            .field.form-group
-              = f.label :description
-              = f.text_area :description, class: 'form-control'
-            .field.form-group
-              = f.label :starts_at
-              = f.datetime_select :starts_at, class: 'form-control'
-            .field.form-group
-              = f.label :ends_at
-              = f.datetime_select :ends_at, class: 'form-control'
-            .field.form-group
-              = f.label :ongoing
-              '
-              = f.check_box :ongoing
-            .actions
-              = f.submit nil, class: 'btn btn-success'
+            = link_to '新建', new_op_show_path, class: 'btn-xs btn-success', target: '_blank'
+            '
+            = link_to '查看', op_shows_path, class: 'btn-xs btn-info', target: '_blank'
+          br
+        = f.text_field :show_id, class: 'form-control'
+    .field.form-group
+      = f.label :title
+      = f.text_field :title, class: 'form-control'
+    .field.form-group
+      = f.label :description
+      = f.text_area :description, class: 'form-control'
+    .field.form-group
+      = f.label :starts_at
+      = f.datetime_select :starts_at, class: 'form-control'
+    .field.form-group
+      = f.label :ends_at
+      = f.datetime_select :ends_at, class: 'form-control'
+    .field.form-group
+      = f.label :ongoing
+      '
+      = f.check_box :ongoing
+    .actions
+      = f.submit nil, class: 'btn btn-success'

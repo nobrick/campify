@@ -1,25 +1,20 @@
-.container
-  .row
-    .col-md-6.col-md-offset-3
-      .panel.panel-success
-        .panel-heading
-          |  登录 
-        .panel-body
-          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-            = render 'shared/flash_messages', form: f
-            .form-group
-              = f.label :login, '账号'
-              br
-              = f.text_field :login, autofocus: true
-            .form-group
-              = f.label :password, '密码'
-              br
-              = f.password_field :password, autocomplete: "off"
-            - if devise_mapping.rememberable?
-              = f.check_box :remember_me
-              '
-              = f.label '记住我'
-            div
-              = f.submit '登录', class: 'btn btn-success'
-          = render 'uni/users/shared/links'
-          /= link_to '以微信登录', uni_user_omniauth_authorize_path(:wechat)
+- content_for :panel_heading
+  |  登录 
+- content_for :panel_body
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-group
+      = f.label :login, '账号'
+      br
+      = f.text_field :login, autofocus: true
+    .form-group
+      = f.label :password, '密码'
+      br
+      = f.password_field :password, autocomplete: 'off'
+    - if devise_mapping.rememberable?
+      = f.check_box :remember_me
+      '
+      = f.label '记住我'
+    div
+      = f.submit '登录', class: 'btn btn-success'
+  = render 'uni/users/shared/links'
+  /= link_to '以微信登录', uni_user_omniauth_authorize_path(:wechat)

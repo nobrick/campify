@@ -1,4 +1,5 @@
 class Op::ShowtimesController < ApplicationController
+  layout :resolve_layout
   before_action :authenticate_admin
   before_action :set_showtime, only: [ :show, :edit, :update, :destroy ]
   before_action :set_hidden_show_id_field, only: [ :new, :edit, :update, :create ]
@@ -66,6 +67,15 @@ class Op::ShowtimesController < ApplicationController
   end
 
   private
+    def resolve_layout
+      case action_name
+      when 'index', 'show'
+        'layouts/panel'
+      else
+        'layouts/panel_grid'
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_showtime
       @showtime = Showtime.find(params[:id])

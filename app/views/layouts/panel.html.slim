@@ -1,0 +1,18 @@
+- content_for :_panel
+  .panel.panel-success
+    .panel-heading
+      = yield :panel_heading
+    .panel-body
+      = yield :panel_body
+  = yield :after_panel if content_for?(:after_panel)
+
+- grid = false if grid.nil?
+- content_for :row
+  - if grid
+    .col-md-6.col-md-offset-3
+      = render 'shared/flash_messages'
+      = yield :_panel
+  - else
+    = yield :_panel
+
+= render template: 'layouts/application', locals: { render_flash: !grid }

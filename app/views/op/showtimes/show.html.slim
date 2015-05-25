@@ -1,41 +1,36 @@
-.container
-  .row
-    .col-md-8.col-md-offset-2
-      .panel.panel-success
-        .panel-heading
-          ' 活动场次
-          = @showtime.id
-          .pull-right
-            = link_to '编辑', edit_op_showtime_path(@showtime), class: 'btn-sm btn-primary'
-            '
-            = link_to '返回', op_showtimes_path, class: 'btn-sm btn-primary'
-        .panel-body
-          = render 'shared/flash_messages'
-          p
-            strong
-              ' 活动
-            = link_to_show(@showtime.show)
-          p
-            strong
-              ' 活动场次ID
-            = @showtime.id
-          p
-            strong
-              ' 标题
-            = @showtime.title
-          p
-            strong
-              ' 描述
-            = @showtime.description
-          p
-            strong
-              ' 开始时间
-            = l @showtime.starts_at
-          p
-            strong
-              ' 结束时间
-            = l @showtime.ends_at
-          p
-            strong
-              ' 活动场次状态
-            = ongoing_status(@showtime.ongoing)
+- content_for :panel_heading
+  ' 活动场次
+  = @showtime.id
+  .pull-right
+    = link_to '编辑', edit_op_showtime_path(@showtime), class: 'btn-sm btn-primary'
+    '
+    = link_to '返回', op_showtimes_path, class: 'btn-sm btn-primary'
+- content_for :panel_body
+  p
+    strong
+      ' 活动
+    = link_to_show(@showtime.show)
+  p
+    strong
+      ' 活动场次ID
+    = @showtime.id
+  p
+    strong
+      ' 标题
+    = @showtime.title
+  p
+    strong
+      ' 描述
+    = @showtime.description
+  p
+    strong
+      ' 开始时间
+    = l @showtime.starts_at
+  p
+    strong
+      ' 结束时间
+    = l @showtime.ends_at
+  p
+    strong
+      ' 活动场次状态
+    = ongoing_status(@showtime.ongoing)

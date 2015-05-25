@@ -1,37 +1,33 @@
-.container
-  .row
-    .col-md-6.col-md-offset-3
-      .panel.panel-success
-        .panel-heading
-          = registration_title
-        .panel-body
-          = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-            - # devise_error_messages!
-            = render 'shared/error_messages', form: f
-            .form-group
-              = f.label :email
-              br
-              = f.email_field :email, autofocus: true
-            .form-group
-              = f.label :username, '用户名'
-              br
-              = f.text_field :username
-            .form-group
-              = f.label :nickname, '昵称'
-              br
-              = f.text_field :nickname
-            .form-group
-              = f.label :password, '密码'
-              br
-              = f.password_field :password, autocomplete: "off"
-            .form-group
-              = f.label :password_confirmation, '密码确认'
-              br
-              = f.password_field :password_confirmation, autocomplete: "off"
-            .form-group
-              = f.label :bio, '个性签名'
-              br
-              = f.text_field :bio
-            div
-              = f.submit registration_title, class: 'btn btn-success'
-          = render 'uni/users/shared/links' unless wechat_request?
+- content_for :panel_heading
+  = registration_title
+- content_for :panel_body
+  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    - # devise_error_messages!
+    = render 'shared/error_messages', form: f
+    .form-group
+      = f.label :email
+      br
+      = f.email_field :email, autofocus: true
+    .form-group
+      = f.label :username, '用户名'
+      br
+      = f.text_field :username
+    .form-group
+      = f.label :nickname, '昵称'
+      br
+      = f.text_field :nickname
+    .form-group
+      = f.label :password, '密码'
+      br
+      = f.password_field :password, autocomplete: "off"
+    .form-group
+      = f.label :password_confirmation, '密码确认'
+      br
+      = f.password_field :password_confirmation, autocomplete: "off"
+    .form-group
+      = f.label :bio, '个性签名'
+      br
+      = f.text_field :bio
+    div
+      = f.submit registration_title, class: 'btn btn-success'
+  = render 'uni/users/shared/links' unless wechat_request?

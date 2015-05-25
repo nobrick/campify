@@ -32,4 +32,16 @@ html
               li
                 = link_to t(:sign_in), new_uni_user_session_path
     .main
-      = yield
+      - render_flash = true if render_flash.nil?
+      - if content_for?(:container)
+        .container
+          = render 'shared/flash_messages' if render_flash
+          = yield :container
+      - elsif content_for?(:row)
+        .container
+          .row
+            = render 'shared/flash_messages' if render_flash
+            = yield :row
+      - else
+        = render 'shared/flash_messages' if render_flash
+        = yield

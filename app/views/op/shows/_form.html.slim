@@ -1,24 +1,20 @@
-.container
-  .row
-    .col-md-6.col-md-offset-3
-      .panel.panel-success
-        .panel-heading
-          = title
-          .pull-right
-            - if @show.persisted?
-              => link_to '显示', [ :op, @show ], class: 'btn-sm btn-primary'
-            = link_to '返回', op_shows_path, class: 'btn-sm btn-primary'
-        .panel-body
-          = form_for [ :op, @show ] do |f|
-            = render 'shared/error_messages', form: f
-            .field.form-group
-              = f.label :name
-              = f.text_field :name, class: 'form-control'
-            .field.form-group
-              = f.label :category
-              = f.text_field :category, class: 'form-control', placeholder: '演出，话剧，电影……'
-            .field.form-group
-              = f.label :description
-              = f.text_area :description, class: 'form-control'
-            .actions
-              = f.submit nil, class: 'btn btn-success'
+- content_for :panel_heading
+  = title
+  .pull-right
+    - if @show.persisted?
+      => link_to '显示', [ :op, @show ], class: 'btn-sm btn-primary'
+    = link_to '返回', op_shows_path, class: 'btn-sm btn-primary'
+- content_for :panel_body
+  = form_for [ :op, @show ] do |f|
+    = render 'shared/error_messages', form: f
+    .field.form-group
+      = f.label :name
+      = f.text_field :name, class: 'form-control'
+    .field.form-group
+      = f.label :category
+      = f.text_field :category, class: 'form-control', placeholder: '演出，话剧，电影……'
+    .field.form-group
+      = f.label :description
+      = f.text_area :description, class: 'form-control'
+    .actions
+      = f.submit nil, class: 'btn btn-success'

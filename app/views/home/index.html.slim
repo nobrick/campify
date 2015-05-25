@@ -1,8 +1,7 @@
-.container
-  .row
-    .col-md-6.col-md-offset-3
-      h1
-        - if uni_user_signed_in?
-          = "Hello, #{current_uni_user.nickname || current_uni_user.username}"
-        - else
-          = "Welcome to #{t :logo_name}"
+- content_for :row
+  .col-md-6.col-md-offset-3
+    h1
+      - if uni_user_signed_in?
+        = "Hello, #{current_uni_user.nickname || current_uni_user.username}"
+      - else
+        = "Welcome to #{t :logo_name}"

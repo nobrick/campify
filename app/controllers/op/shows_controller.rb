@@ -1,4 +1,5 @@
 class Op::ShowsController < ApplicationController
+  layout :resolve_layout
   before_action :authenticate_admin
   before_action :set_show, only: [ :show, :edit, :update, :destroy ]
 
@@ -64,6 +65,15 @@ class Op::ShowsController < ApplicationController
   end
 
   private
+    def resolve_layout
+      case action_name
+      when 'index', 'show'
+        'layouts/panel'
+      else
+        'layouts/panel_grid'
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_show
       @show = Show.find(params[:id])
