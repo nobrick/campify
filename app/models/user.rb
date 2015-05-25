@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   has_many :proposed_shows, class_name: 'Show', foreign_key: :proposer_id
+  has_many :enrollments
+  has_many :showtimes, through: :enrollments
 
   validates :username,
     presence: true,

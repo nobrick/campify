@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # namespace for university students
   namespace :uni do
     devise_for :users, module: 'uni/users', path: 'account'
+    resources :enrollments, only: [ :create, :destroy ]
   end
 
   namespace :api do

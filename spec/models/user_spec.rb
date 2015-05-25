@@ -2,9 +2,15 @@ require 'rails_helper'
 
 RSpec.describe User, :type => :model do
   let!(:user) { create :user, email: 'john@email.com', username: 'johndoe' }
+  let(:showtime) { create :showtime }
 
   it 'creates a user' do
     expect(user).to be_a User
+  end
+
+  it 'associates enrolled showtimes' do
+    create :enrollment, showtime_id: showtime.id, user_id: user.id
+    expect(user.showtimes).to eq [ showtime ]
   end
 
   it 'raises when creating with case-insensitive same username' do
