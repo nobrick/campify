@@ -21,4 +21,10 @@ RSpec.describe Showtime, type: :model do
     create :enrollment, showtime_id: showtime.id, user_id: user.id
     expect(showtime.members).to eq [ user ]
   end
+
+  it 'Showtime.ongoing lists ongoing showtimes' do
+    showtime_ongoing = create :showtime, ongoing: true
+    showtime_accomplished = create :showtime, ongoing: false
+    expect(Showtime.ongoing).to eq [ showtime_ongoing ]
+  end
 end

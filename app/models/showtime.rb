@@ -11,6 +11,8 @@ class Showtime < ActiveRecord::Base
   validates_presence_of :show, message: '是无效的'
   validate :ends_at_must_be_after_starts_at
 
+  scope :ongoing, -> { where(ongoing: true) }
+
   private
 
   def default_values
