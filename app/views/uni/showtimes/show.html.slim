@@ -1,0 +1,23 @@
+- content_for :row
+  .col-md-6.col-md-offset-3
+    h1 = @showtime.title
+    p
+      strong
+        ' 描述
+      = @showtime.description
+    p
+      strong
+        ' 开始时间
+      = l @showtime.starts_at
+    p
+      strong
+        ' 结束时间
+      = l @showtime.ends_at
+    .text-center
+      - if enrolled_in?(@showtime)
+        h3
+          | 已报名
+        = link_to '取消报名', [ :uni, enrollment_for(@showtime) ], method: :delete
+      - else
+        = link_to '报名', uni_enrollments_path(enrollment: { showtime_id: @showtime.id }), \
+        class: 'btn-lg btn-danger', method: :post

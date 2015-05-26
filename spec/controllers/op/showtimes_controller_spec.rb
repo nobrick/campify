@@ -17,7 +17,7 @@ RSpec.describe Op::ShowtimesController, type: :controller do
       end
     end
 
-    describe 'GET #showtime' do
+    describe 'GET #show' do
       it 'assigns the requested showtime as @showtime' do
         get :show, { id: showtime.to_param }
         expect(assigns(:showtime)).to eq showtime

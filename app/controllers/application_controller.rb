@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :wechat_request?
+  helper_method :wechat_request?, :enrolled_in?, :enrollment_for
+
+  def enrolled_in?(showtime)
+    uni_user_signed_in? && Enrollment.exists?(user_id: current_uni_user.id, showtime_id: showtime.id)
+  end
+
+  def enrollment_for(showtime)
+    Enrollment.find_by(user_id: current_uni_user.id, showtime_id: showtime.id)
+  end
 
   def authenticate_admin
     unless uni_user_signed_in? && current_uni_user.admin?
