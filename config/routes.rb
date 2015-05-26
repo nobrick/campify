@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     devise_for :users, module: 'uni/users', path: 'account'
     resources :enrollments, only: [ :create, :destroy ]
     resources :showtimes, only: [ :show ]
+    get 'profile/show'
   end
 
   namespace :api do

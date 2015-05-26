@@ -8,9 +8,9 @@ class Uni::EnrollmentsController < ApplicationController
     @enrollment.user = current_uni_user
     respond_to do |format|
       if @enrollment.save
-        format.html { redirect_to home_index_path, notice: '报名成功。' }
+        format.html { redirect_to uni_profile_show_path, notice: '报名成功。' }
       else
-        format.html { redirect_to home_index_path, alert: '报名失败。' }
+        format.html { redirect_to uni_profile_show_path, alert: '报名失败。' }
       end
     end
   end
@@ -21,9 +21,9 @@ class Uni::EnrollmentsController < ApplicationController
     @enrollment.destroy if allowed
     respond_to do |format|
       if allowed
-        format.html { redirect_to home_index_path, notice: '取消报名成功。' }
+        format.html { redirect_to uni_profile_show_path, notice: '取消报名成功。' }
       else
-        format.html { redirect_to home_index_path, alert: '取消报名失败。' }
+        format.html { redirect_to uni_profile_show_path, alert: '取消报名失败。' }
       end
     end
   end

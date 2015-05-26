@@ -1,0 +1,9 @@
+- content_for :grid
+  h2 我的活动
+  ul.list-group
+  - current_uni_user.showtimes.each do |showtime|
+    li.list-group-item
+      h2.list-group-item-heading
+        = link_to showtime.title, [ :uni, showtime ]
+      p.list-group-item-text
+        = showtime.description
