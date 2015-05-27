@@ -26,6 +26,9 @@ html
               li.divider
               li
                 = link_to '注销', destroy_uni_user_session_path, method: :delete
+            - elsif wechat_request?
+              li
+                = link_to '微信登录', uni_user_omniauth_authorize_path(:wechat)
             - else
               li
                 = link_to t(:sign_up), new_uni_user_registration_path
