@@ -2,7 +2,6 @@
   = registration_title
 - content_for :panel_body
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-    - # devise_error_messages!
     = render 'shared/error_messages', form: f
     .form-group
       = f.label :email
@@ -30,4 +29,4 @@
       = f.text_field :bio
     div
       = f.submit registration_title, class: 'btn btn-success'
-  = render 'uni/users/shared/links' unless wechat_request?
+  = render 'uni/users/shared/links' unless wechat_request? && wechat_session_set?

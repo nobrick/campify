@@ -25,13 +25,15 @@ class User < ActiveRecord::Base
 
   # This is the first method called by Devise::RegistrationsController#new, #create
   def self.new_with_session(params, session)
-    auth = session[WECHAT_SESSION_KEY]
-    user = new(params)
-    if auth
-      user.username = "ca_#{SecureRandom.hex(5)}" if user.username.blank?
-      user.nickname = auth['info']['nickname'] if user.nickname.blank?
+    super.tap do |user|
+      auth = session[WECHAT_SESSION_KEY]
+      if auth && auth['extra']['raw_info']
+        uid_token = auth['uid'].gsub(/[^a-zA-Z]/, '').downcase
+        uid_token = "#{uid_token[0..3]}_#{uid_token[-4..-1]}_#{SecureRandom.hex(1)}"
+        user.username = "c_#{uid_token}" if user.username.blank?
+        user.nickname = auth['info']['nickname'] if user.nickname.blank?
+      end
     end
-    user
   end
 
   def self.find_for_database_authentication(warden_conditions)

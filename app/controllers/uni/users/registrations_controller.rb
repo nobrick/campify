@@ -11,9 +11,9 @@ class Uni::Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    auth = session.delete WECHAT_SESSION_KEY
-    super do |user|
-      if auth
+    if wechat_session_set?
+      auth = session.delete WECHAT_SESSION_KEY
+      super do |user|
         user.uid = auth['uid']
         user.provider = auth['provider'] # wechat
         # user.password = Devise.friendly_token[0,20]
@@ -28,6 +28,8 @@ class Uni::Users::RegistrationsController < Devise::RegistrationsController
         user.country = info['country']
         user.wechat_headimgurl = info['headimgurl']
       end
+    else
+      super
     end
   end
 

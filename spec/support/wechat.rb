@@ -24,7 +24,12 @@ module Wechat::TestHelpers
       language: 'en'
     }
     options.merge!(options_new)
-
+    raw_info = {
+      city: options[:city], country: options[:country], headimgurl: options[:headimgurl],
+      language: options[:language], nickname: options[:nickname], openid: options[:open_id],
+      privilege: [], province: options[:province], sex: 1
+    }
+    raw_info = options_new[:failure] ? {} : raw_info
     OmniAuth::AuthHash.new({
       provider: 'wechat',
       uid: options[:open_id],
@@ -35,11 +40,7 @@ module Wechat::TestHelpers
         token: options[:token]
       },
       extra: {
-        raw_info: {
-          city: options[:city], country: options[:country], headimgurl: options[:headimgurl],
-          language: options[:language], nickname: options[:nickname], openid: options[:open_id],
-          privilege: [], province: options[:province], sex: 1
-        }
+        raw_info: raw_info
       },
       info: {
         city: options[:city], country: options[:country], headimgurl: options[:headimgurl],

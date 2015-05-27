@@ -12,10 +12,14 @@ class Uni::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksControl
     if @user
       session[WECHAT_SESSION_KEY] = nil
       sign_in_and_redirect @user, :event => :authentication # This will throw if @user is not activated
-      set_flash_message(:notice, :success, :kind => 'Wechat') if is_navigational_format?
+      set_flash_message(:notice, :success, :kind => '微信') if is_navigational_format?
     else
       session[WECHAT_SESSION_KEY] = auth
-      redirect_to new_uni_user_registration_url
+      if wechat_session_set?
+        redirect_to new_uni_user_registration_url
+      else
+        redirect_to_failure_path
+      end
     end
   end
 
@@ -27,10 +31,16 @@ class Uni::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksControl
   #   super
   # end
 
-  # GET|POST /users/auth/twitter/callback
-  # def failure
-  #   super
-  # end
+  # GET|POST /users/auth/wechat/callback
+  def failure
+    redirect_to_failure_path
+  end
+
+  private
+
+  def redirect_to_failure_path
+    redirect_to home_index_path, alert: '获取您的微信资料失败，请稍后重试'
+  end
 
   # protected
 

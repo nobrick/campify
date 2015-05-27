@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :wechat_request?, :enrolled_in?, :enrollment_for
+  helper_method :wechat_request?, :wechat_session_set?, :enrolled_in?, :enrollment_for
 
   def enrolled_in?(showtime)
     uni_user_signed_in? && Enrollment.exists?(user_id: current_uni_user.id, showtime_id: showtime.id)
@@ -16,20 +16,25 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def wechat_request?
-    request.env['HTTP_USER_AGENT'].include?(' MicroMessenger/')
-  end
-
   def authorize_wechat
     # Redirect to omniauth and get callback for we-requests with no session set.
-    if wechat_request? && session[WECHAT_SESSION_KEY].nil?
+    if wechat_request? && !(wechat_session_set?)
       redirect_to uni_user_omniauth_authorize_path(:wechat)
     end
   end
 
   def finish_wechat_sign_up
-    if wechat_request? && session[WECHAT_SESSION_KEY]
+    if wechat_request? && wechat_session_set?
       redirect_to new_uni_user_registration_url
     end
+  end
+
+  def wechat_session_set?
+    value = session[WECHAT_SESSION_KEY]
+    value.present? && value['extra']['raw_info'].present?
+  end
+
+  def wechat_request?
+    request.env['HTTP_USER_AGENT'].include?(' MicroMessenger/')
   end
 end
