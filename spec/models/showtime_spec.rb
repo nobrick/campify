@@ -22,9 +22,26 @@ RSpec.describe Showtime, type: :model do
     expect(showtime.members).to eq [ user ]
   end
 
-  it 'Showtime.ongoing lists ongoing showtimes' do
-    showtime_ongoing = create :showtime, ongoing: true
-    showtime_accomplished = create :showtime, ongoing: false
-    expect(Showtime.ongoing).to eq [ showtime_ongoing ]
+  describe '.ongoing' do
+    it 'lists ongoing showtimes' do
+      showtime_ongoing = create :showtime, ongoing: true
+      showtime_accomplished = create :showtime, ongoing: false
+      expect(Showtime.ongoing).to eq [ showtime_ongoing ]
+    end
+  end
+
+  describe '.enrolled_by(user)' do
+    let(:another_user) { create :user }
+    let(:showtimes) { 3.times.collect { create :showtime } }
+
+    it 'lists showtimes enrolled by the user ordered by enrollment time' do
+      enrollments = [
+        create(:enrollment, user_id: user.id, showtime_id: showtimes[0].id),
+        create(:enrollment, user_id: user.id, showtime_id: showtimes[1].id),
+        create(:enrollment, user_id: another_user.id, showtime_id: showtimes[2].id)
+      ]
+      expect(Showtime.enrolled_by(another_user)).to eq [ showtimes[2] ]
+      expect(Showtime.enrolled_by(user)).to eq [ showtimes[1], showtimes[0] ]
+    end
   end
 end

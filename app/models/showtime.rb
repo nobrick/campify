@@ -11,7 +11,12 @@ class Showtime < ActiveRecord::Base
   validates_presence_of :show, message: '是无效的'
   validate :ends_at_must_be_after_starts_at
 
-  scope :ongoing, -> { where(ongoing: true) }
+  scope :ongoing, -> { where(ongoing: true).order(created_at: :desc) }
+
+  def self.enrolled_by(user)
+    joins(:enrollments).where(enrollments: { user_id: user.id })
+      .order('enrollments.created_at desc')
+  end
 
   private
 

@@ -7,7 +7,7 @@ class Op::ShowtimesController < ApplicationController
   # GET /op/showtimes
   # GET /op/showtimes.json
   def index
-    @showtimes = Showtime.all
+    @showtimes = Showtime.order(created_at: :desc)
   end
 
   # GET /op/showtimes/1

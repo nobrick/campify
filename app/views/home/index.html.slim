@@ -1,7 +1,7 @@
 - content_for :row
   .col-md-6.col-md-offset-3
     ul.list-group
-    - Showtime.ongoing.each do |showtime|
+    - @showtime.each do |showtime|
       li.list-group-item
         h2.list-group-item-heading
           = link_to showtime.title, [ :uni, showtime ]

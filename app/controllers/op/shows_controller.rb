@@ -6,7 +6,7 @@ class Op::ShowsController < ApplicationController
   # GET /op/shows
   # GET /op/shows.json
   def index
-    @shows = Show.all
+    @shows = Show.order(created_at: :desc)
   end
 
   # GET /op/shows/1
