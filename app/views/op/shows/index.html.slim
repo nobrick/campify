@@ -1,7 +1,7 @@
 - content_for :panel_heading
-  | 活动列表
+  | 活动主题列表
   .pull-right
-    = link_to '新建活动', new_op_show_path, class: 'btn-sm btn-primary'
+    = link_to '新建活动主题', new_op_show_path, class: 'btn-sm btn-primary'
 - content_for :panel_body
   table.table
     thead
@@ -11,6 +11,7 @@
         th 描述
         th 发起人
         th 类别
+        th 创建时间
         th
         th
 
@@ -22,5 +23,6 @@
           td = show.description
           td = show.proposer.username
           td = show.category
+          td = l show.created_at
           td = link_to '编辑', edit_op_show_path(show)
-          td = link_to '删除', [ :op, show ], data: { confirm: '你确实要删除这个活动吗？' }, method: :delete
+          td = link_to '删除', [ :op, show ], data: { confirm: '你确实要删除这个活动主题吗？' }, method: :delete

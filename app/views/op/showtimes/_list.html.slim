@@ -3,13 +3,14 @@ table.table
   thead
     tr
       - unless hidden_show_id_field
-        th 活动
+        th 活动主题
       th 活动场次ID
       th 标题
       th 描述
       th 开始时间
       th 结束时间
       th 活动场次状态
+      th 创建时间
       th
       th
       th
@@ -25,5 +26,6 @@ table.table
         td = l showtime.starts_at
         td = l showtime.ends_at
         td = ongoing_status(showtime.ongoing)
+        td = l showtime.created_at
         td = link_to '编辑', edit_op_showtime_path(showtime, hidden_show_id_field: hidden_show_id_field)
         td = link_to '删除', [ :op, showtime ], data: {:confirm => '你确实要删除这个活动场次吗？'}, :method => :delete

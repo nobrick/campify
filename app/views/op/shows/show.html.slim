@@ -1,5 +1,5 @@
 - content_for :panel_heading
-  ' 活动 #{@show.id}
+  ' 活动主题 #{@show.id}
   .pull-right
     = link_to '编辑', edit_op_show_path(@show), class: 'btn-sm btn-primary'
     '
@@ -7,7 +7,7 @@
 - content_for :panel_body
   p
     strong
-      ' 活动ID:
+      ' 活动主题ID:
     = @show.id
   p
     strong
@@ -28,7 +28,7 @@
 - content_for :after_panel
   .panel.panel-success
     .panel-heading
-      ' 活动 #{@show.id} 的活动场次
+      ' 相关的活动场次
       .pull-right
         = link_to '新建活动场次', new_op_showtime_path(show_id: @show.id), class: 'btn-sm btn-primary'
     .panel-body
