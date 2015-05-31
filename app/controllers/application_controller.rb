@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   helper_method :enable_render_flash, :disable_render_flash
   helper_method :enable_render_op_links, :disable_render_op_links
 
+  private
+
   def enrolled_in?(showtime)
     uni_user_signed_in? && Enrollment.exists?(user_id: current_uni_user.id, showtime_id: showtime.id)
   end
@@ -40,8 +42,6 @@ class ApplicationController < ActionController::Base
   def wechat_request?
     request.env['HTTP_USER_AGENT'].include?(' MicroMessenger/')
   end
-
-  private
 
   def render_op_links?
     @to_render_op_links && current_uni_user.try(:admin?) && !wechat_request?
