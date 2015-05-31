@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530023433) do
+ActiveRecord::Schema.define(version: 20150531104238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "enrollments", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "showtime_id"
+    t.integer  "user_id",     null: false
+    t.integer  "showtime_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(version: 20150530023433) do
   add_index "enrollments", ["user_id"], name: "index_enrollments_on_user_id", using: :btree
 
   create_table "shows", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        null: false
     t.string   "category"
     t.text     "description"
-    t.integer  "proposer_id"
+    t.integer  "proposer_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -40,11 +40,11 @@ ActiveRecord::Schema.define(version: 20150530023433) do
   add_index "shows", ["proposer_id"], name: "index_shows_on_proposer_id", using: :btree
 
   create_table "showtimes", force: :cascade do |t|
-    t.integer  "show_id"
-    t.string   "title"
+    t.integer  "show_id",                    null: false
+    t.string   "title",                      null: false
     t.text     "description"
-    t.datetime "starts_at"
-    t.datetime "ends_at"
+    t.datetime "starts_at",                  null: false
+    t.datetime "ends_at",                    null: false
     t.boolean  "ongoing",     default: true
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
