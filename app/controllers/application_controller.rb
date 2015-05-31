@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :wechat_request?, :wechat_session_set?, :enrolled_in?, :enrollment_for
+  helper_method :render_op_links?, :render_flash?
+  helper_method :enable_render_flash, :disable_render_flash
+  helper_method :enable_render_op_links, :disable_render_op_links
 
   def enrolled_in?(showtime)
     uni_user_signed_in? && Enrollment.exists?(user_id: current_uni_user.id, showtime_id: showtime.id)
@@ -36,5 +39,32 @@ class ApplicationController < ActionController::Base
 
   def wechat_request?
     request.env['HTTP_USER_AGENT'].include?(' MicroMessenger/')
+  end
+
+  private
+
+  def render_op_links?
+    @to_render_op_links && current_uni_user.try(:admin?) && !wechat_request?
+  end
+
+  def render_flash?
+    @to_render_flash = true if @to_render_flash.nil?
+    @to_render_flash
+  end
+
+  def enable_render_op_links
+    @to_render_op_links = true
+  end
+
+  def disable_render_op_links
+    @to_render_op_links = false
+  end
+
+  def enable_render_flash
+    @to_render_flash = true
+  end
+
+  def disable_render_flash
+    @to_render_flash = false
   end
 end

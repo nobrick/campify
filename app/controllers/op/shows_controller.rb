@@ -2,6 +2,7 @@ class Op::ShowsController < ApplicationController
   layout :resolve_layout
   before_action :authenticate_admin
   before_action :set_show, only: [ :show, :edit, :update, :destroy ]
+  before_action :enable_render_op_links
 
   # GET /op/shows
   # GET /op/shows.json

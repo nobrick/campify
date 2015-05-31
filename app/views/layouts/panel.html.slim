@@ -10,9 +10,12 @@
 - content_for :row
   - if grid
     .col-md-6.col-md-offset-3
-      = render 'shared/flash_messages'
+      = render_before_content
       = yield :_panel
   - else
     = yield :_panel
 
-= render template: 'layouts/application', locals: { render_flash: !grid }
+- if grid
+  - disable_render_flash
+  - disable_render_op_links
+= render template: 'layouts/application'

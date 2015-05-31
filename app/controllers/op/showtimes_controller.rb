@@ -3,6 +3,7 @@ class Op::ShowtimesController < ApplicationController
   before_action :authenticate_admin
   before_action :set_showtime, only: [ :show, :edit, :update, :destroy ]
   before_action :set_hidden_show_id_field, only: [ :new, :edit, :update, :create ]
+  before_action :enable_render_op_links
 
   # GET /op/showtimes
   # GET /op/showtimes.json

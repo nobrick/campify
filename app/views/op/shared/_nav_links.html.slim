@@ -1,0 +1,36 @@
+.t-op-nav-links
+  .btn-group
+    = link_to fa_icon('ticket', class: 't-btn-icon') + ' 活动主题', op_shows_path, class: 'btn btn-default'
+    button.btn.btn-default.dropdown-toggle[type="button" data-toggle="dropdown" aria-expanded="false"]
+      span.caret
+      span.sr-only
+        | Toggle Dropdown
+    ul.dropdown-menu[role="menu"]
+      li
+        = link_to '新建活动主题', new_op_show_path
+      li
+        = link_to '活动主题列表', op_shows_path
+  .btn-group
+    = link_to fa_icon('building', class: 't-btn-icon') + ' 活动场次', op_showtimes_path, class: 'btn btn-default'
+    button.btn.btn-default.dropdown-toggle[type="button" data-toggle="dropdown" aria-expanded="false"]
+      span.caret
+      span.sr-only
+        | Toggle Dropdown
+    ul.dropdown-menu[role="menu"]
+      li
+        = link_to '新建活动场次', new_op_showtime_path
+      li
+        = link_to '活动场次列表', op_showtimes_path
+
+  /= link_to fa_icon('users', class: 't-btn-icon') + ' 投票管理', '#', class: 'btn btn-default'
+
+  .btn-group
+    button.btn.btn-default.dropdown-toggle[type="button" data-toggle="dropdown" aria-expanded="false"]
+      = content_tag :span, fa_icon('plus', class: 't-btn-plus')
+      span.sr-only
+        | Toggle Dropdown
+    ul.dropdown-menu[role="menu"]
+      li
+        = link_to '新建活动主题', new_op_show_path
+      li
+        = link_to '新建活动场次', new_op_showtime_path

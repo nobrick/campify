@@ -29,3 +29,16 @@
 body {
   padding-top: 65px;
 }
+
+.t-op-nav-links {
+  margin: 2px 0px 23px 0px;
+  .t-btn-plus {
+    color: red;
+    opacity: 0.5;
+  }
+
+  .t-btn-icon {
+    color: #48b2d8;
+    opacity: 1;
+  }
+}

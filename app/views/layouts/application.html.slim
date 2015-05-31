@@ -35,22 +35,21 @@ html
               li
                 = link_to t(:sign_in), new_uni_user_session_path
     .main
-      - render_flash = true if render_flash.nil?
       - if content_for?(:container)
         .container
-          = render 'shared/flash_messages' if render_flash
+          = render_before_content
           = yield :container
       - elsif content_for?(:row)
         .container
           .row
-            = render 'shared/flash_messages' if render_flash
+            = render_before_content
             = yield :row
       - elsif content_for?(:grid)
         .container
           .row
             .col-md-6.col-md-offset-3
-              = render 'shared/flash_messages' if render_flash
+              = render_before_content
               = yield :grid
       - else
-        = render 'shared/flash_messages' if render_flash
+        = render_before_content
         = yield
