@@ -1,6 +1,6 @@
 class Showtime < ActiveRecord::Base
   belongs_to :show
-  has_many :enrollments
+  has_many :enrollments, dependent: :destroy
   has_many :members, through: :enrollments, source: :user
 
   after_initialize :default_values
