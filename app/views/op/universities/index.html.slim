@@ -1,0 +1,24 @@
+- content_for :panel_heading
+  | 大学条目列表
+  .pull-right
+    = link_to '新建大学条目', new_op_university_path, class: 'btn-sm btn-primary'
+- content_for :panel_body
+  table.table
+    thead
+      tr
+        th 大学ID
+        th 名称
+        th 城市
+        th 地址
+        th
+        th
+
+    tbody
+      - @universities.each do |university|
+        tr
+          td = university.id
+          td = link_to university.name, [ :op, university ]
+          td = university.city
+          td = university.location
+          td = link_to '编辑', edit_op_university_path(university)
+          td = link_to '删除', [ :op, university ], data: {:confirm => '你确实要删除这个大学条目吗？'}, :method => :delete

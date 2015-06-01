@@ -8,29 +8,29 @@
 - content_for :panel_body
   p
     strong
-      ' 活动主题
+      ' 活动主题：
     = link_to_show(@showtime.show)
   p
     strong
-      ' 活动场次ID
+      ' 活动场次ID：
     = @showtime.id
   p
     strong
-      ' 标题
+      ' 标题：
     = @showtime.title
   p
     strong
-      ' 描述
+      ' 描述：
     = @showtime.description
   p
     strong
-      ' 开始时间
+      ' 开始时间：
     = l @showtime.starts_at
   p
     strong
-      ' 结束时间
+      ' 结束时间：
     = l @showtime.ends_at
   p
     strong
-      ' 活动场次状态
+      ' 活动场次状态：
     = ongoing_status(@showtime.ongoing)

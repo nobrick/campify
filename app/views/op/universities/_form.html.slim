@@ -1,0 +1,20 @@
+- content_for :panel_heading
+  = title
+  .pull-right
+    - if @university.persisted?
+      => link_to '显示', [ :op, @university ], class: 'btn-sm btn-primary'
+    = link_to '返回', op_universities_path, class: 'btn-sm btn-primary'
+- content_for :panel_body
+  = form_for [ :op, @university ] do |f|
+    = render 'shared/error_messages', form: f
+    .field.form-group
+      = f.label :name
+      = f.text_field :name, class: 'form-control'
+    .field.form-group
+      = f.label :city
+      = f.text_field :city, class: 'form-control'
+    .field.form-group
+      = f.label :location
+      = f.text_field :location, class: 'form-control'
+    .actions
+      = f.submit nil, class: 'btn btn-success'

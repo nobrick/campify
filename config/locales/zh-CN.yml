@@ -7,6 +7,7 @@ zh-CN:
       user: '用户'
       show: '活动主题'
       showtime: '活动场次'
+      university: '大学'
     attributes:
       user:
         username: '用户名'
@@ -29,6 +30,10 @@ zh-CN:
         starts_at: '开始时间'
         ends_at: '结束时间'
         ongoing: '活动场次状态'
+      university:
+        name: '名称'
+        city: '城市'
+        location: '地址'
   sign_in: '登录'
   sign_up: '新用户'
   password: '密码'
