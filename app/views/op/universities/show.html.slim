@@ -1,0 +1,20 @@
+- content_for :panel_heading
+  ' 大学
+  = @university.id
+  .pull-right
+    = link_to '编辑', edit_op_university_path(@university), class: 'btn-sm btn-primary'
+    '
+    = link_to '返回', op_universities_path, class: 'btn-sm btn-primary'
+- content_for :panel_body
+  p
+    strong 大学ID：
+    = @university.id
+  p
+    strong 名称：
+    = @university.name
+  p
+    strong 城市：
+    = @university.city
+  p
+    strong 地址：
+    = @university.location
