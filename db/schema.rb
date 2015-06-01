@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531104238) do
+ActiveRecord::Schema.define(version: 20150601060652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(version: 20150531104238) do
   add_index "showtimes", ["ongoing"], name: "index_showtimes_on_ongoing", using: :btree
   add_index "showtimes", ["show_id"], name: "index_showtimes_on_show_id", using: :btree
   add_index "showtimes", ["starts_at"], name: "index_showtimes_on_starts_at", using: :btree
+
+  create_table "universities", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "city",       null: false
+    t.string   "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
