@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :op do
     resources :shows
     resources :showtimes
+    resources :universities
   end
 
   # namespace for university students
