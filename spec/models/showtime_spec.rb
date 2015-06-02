@@ -22,6 +22,11 @@ RSpec.describe Showtime, type: :model do
     expect(showtime.members).to eq [ user ]
   end
 
+  it 'has one ballot' do
+    ballot = create :campus_ballot, showtime_id: showtime.id
+    expect(showtime.ballot).to eq ballot
+  end
+
   describe '.ongoing' do
     it 'lists ongoing showtimes' do
       showtime_ongoing = create :showtime, ongoing: true

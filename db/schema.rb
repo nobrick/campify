@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601060652) do
+ActiveRecord::Schema.define(version: 20150601130222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "campus_ballots", force: :cascade do |t|
+    t.integer  "showtime_id", null: false
+    t.datetime "expires_at",  null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "campus_ballots", ["expires_at"], name: "index_campus_ballots_on_expires_at", using: :btree
+  add_index "campus_ballots", ["showtime_id"], name: "index_campus_ballots_on_showtime_id", unique: true, using: :btree
 
   create_table "enrollments", force: :cascade do |t|
     t.integer  "user_id",     null: false
@@ -103,6 +113,7 @@ ActiveRecord::Schema.define(version: 20150601060652) do
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "campus_ballots", "showtimes"
   add_foreign_key "enrollments", "showtimes"
   add_foreign_key "enrollments", "users"
   add_foreign_key "shows", "users", column: "proposer_id"
