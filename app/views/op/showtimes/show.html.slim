@@ -34,3 +34,23 @@
     strong
       ' 活动场次状态：
     = ongoing_status(@showtime.ongoing)
+  p
+    strong
+      ' 竞投状态：
+    = @showtime.ballot.present? ? "竞投进行中（#{l @ballot.expires_at}过期）" : '竞投未开启'
+- content_for :after_panel
+  .panel.panel-success
+    .panel-heading
+      ' 竞投管理
+      - if @showtime.ballot.present?
+        .pull-right
+          = link_to '取消竞投', op_showtime_ballot_path(@showtime), data: { confirm: '你确实要取消投票吗？' }, method: :delete, class: 'btn-sm btn-danger'
+    .panel-body
+      - if @ballot.present?
+        = form_for @ballot, as: :ballot, url: op_showtime_ballot_path(@showtime) do |f|
+          = render 'shared/error_messages', form: f
+          .field.form-group
+            => f.label :expires_at
+            = f.datetime_select :expires_at, class: 'form-control'
+          .actions
+            = f.submit nil, class: 'btn btn-success'

@@ -8,6 +8,7 @@ zh-CN:
       show: '活动主题'
       showtime: '活动场次'
       university: '大学'
+      campus_ballot: '校园竞投'
     attributes:
       user:
         username: '用户名'
@@ -34,6 +35,8 @@ zh-CN:
         name: '名称'
         city: '城市'
         location: '地址'
+      campus_ballot:
+        expires_at: '过期时间'
   sign_in: '登录'
   sign_up: '新用户'
   password: '密码'

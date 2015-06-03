@@ -57,6 +57,6 @@ class Op::CampusBallotsController < ApplicationController
   end
 
   def redirect_to_showtime(message)
-    redirect_to op_showtime_ballot_path(@showtime), notice: message
+    redirect_to op_showtime_path(@showtime), notice: message
   end
 end
