@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   # namespace for product operators
   namespace :op do
     resources :shows
-    resources :showtimes
+    resources :showtimes do
+      resource :ballot, only: [ :create, :update, :destroy ], controller: 'campus_ballots'
+    end
     resources :universities
   end
 
