@@ -2,7 +2,7 @@ class Showtime < ActiveRecord::Base
   belongs_to :show
   has_many :enrollments, dependent: :destroy
   has_many :members, through: :enrollments, source: :user
-  has_one :ballot, class_name: 'CampusBallot'
+  has_one :ballot, class_name: 'CampusBallot', dependent: :destroy
 
   after_initialize :default_values
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601130222) do
+ActiveRecord::Schema.define(version: 20150603143141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,21 @@ ActiveRecord::Schema.define(version: 20150601130222) do
 
   add_index "campus_ballots", ["expires_at"], name: "index_campus_ballots_on_expires_at", using: :btree
   add_index "campus_ballots", ["showtime_id"], name: "index_campus_ballots_on_showtime_id", unique: true, using: :btree
+
+  create_table "campus_votes", force: :cascade do |t|
+    t.integer  "ballot_id",                        null: false
+    t.integer  "user_id",                          null: false
+    t.integer  "university_id",                    null: false
+    t.boolean  "vote_for_own_uni", default: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "campus_votes", ["ballot_id", "user_id"], name: "index_campus_votes_on_ballot_id_and_user_id", unique: true, using: :btree
+  add_index "campus_votes", ["ballot_id"], name: "index_campus_votes_on_ballot_id", using: :btree
+  add_index "campus_votes", ["university_id"], name: "index_campus_votes_on_university_id", using: :btree
+  add_index "campus_votes", ["user_id"], name: "index_campus_votes_on_user_id", using: :btree
+  add_index "campus_votes", ["vote_for_own_uni"], name: "index_campus_votes_on_vote_for_own_uni", using: :btree
 
   create_table "enrollments", force: :cascade do |t|
     t.integer  "user_id",     null: false
@@ -114,6 +129,9 @@ ActiveRecord::Schema.define(version: 20150601130222) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "campus_ballots", "showtimes"
+  add_foreign_key "campus_votes", "campus_ballots", column: "ballot_id"
+  add_foreign_key "campus_votes", "universities"
+  add_foreign_key "campus_votes", "users"
   add_foreign_key "enrollments", "showtimes"
   add_foreign_key "enrollments", "users"
   add_foreign_key "shows", "users", column: "proposer_id"

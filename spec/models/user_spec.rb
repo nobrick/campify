@@ -23,6 +23,12 @@ RSpec.describe User, :type => :model do
       .to raise_error(ActiveRecord::RecordInvalid)
   end
 
+  it 'has many votes' do
+    vote_1 = create :campus_vote, user_id: user.id
+    vote_2 = create :campus_vote, user_id: (create :user).id
+    expect(user.votes).to eq [ vote_1 ]
+  end
+
   describe 'username' do
     it 'is in length 3..18' do
       [ 3, 10, 18 ].each do |t|

@@ -1,5 +1,7 @@
 class CampusBallot < ActiveRecord::Base
   belongs_to :showtime
+  has_many :votes, class_name: 'CampusVote',
+    foreign_key: 'ballot_id', dependent: :destroy
 
   validates :showtime, presence: true
   validates :expires_at, presence: true

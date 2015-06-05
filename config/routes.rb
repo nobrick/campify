@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   namespace :uni do
     devise_for :users, module: 'uni/users', path: 'account'
     resources :enrollments, only: [ :create, :destroy ]
-    resources :showtimes, only: [ :show ]
+    resources :showtimes, only: [ :show ] do
+      resource :vote, only: [ :create ], controller: 'campus_votes'
+    end
     get 'profile/show'
   end
 

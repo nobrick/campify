@@ -38,6 +38,13 @@
     strong
       ' 竞投状态：
     = @showtime.ballot.present? ? "竞投进行中（#{l @ballot.expires_at}过期）" : '竞投未开启'
+    - if @showtime.ballot.present?
+      .col-md-4
+        ul.list-group
+          - University.all.each do |university|
+            li.list-group-item
+              span.badge = university.votes_count_for(@showtime)
+              = university.name
 - content_for :after_panel
   .panel.panel-success
     .panel-heading
