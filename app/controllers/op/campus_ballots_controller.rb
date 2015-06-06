@@ -35,8 +35,7 @@ class Op::CampusBallotsController < ApplicationController
     @ballot.destroy
     respond_to do |format|
       format.html do
-        flash[:notice] = '成功删除投票。'
-        render 'op/showtimes/show'
+        redirect_to_showtime '成功删除投票。'
       end
     end
   end

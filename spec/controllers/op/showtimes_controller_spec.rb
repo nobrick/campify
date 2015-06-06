@@ -104,13 +104,31 @@ RSpec.describe Op::ShowtimesController, type: :controller do
 
     describe 'DELETE #destroy' do
       it 'destroys the requested showtime' do
-        expect { delete :destroy, {:id => showtime.to_param} }
+        expect { delete :destroy, id: showtime.to_param }
           .to change(Showtime, :count).by -1
       end
 
       it 'redirects to the showtimes list' do
         delete :destroy, { id: showtime.to_param }
         expect(response).to redirect_to op_showtimes_url
+      end
+    end
+
+    describe 'Enrollment' do
+      describe '#enroll_on' do
+        it 'enables enrollment' do
+          showtime.update_attribute(:enrollable, false)
+          post :enroll_on, { id: showtime.to_param }
+          expect(showtime.reload.enrollable).to eq true
+        end
+      end
+
+      describe '#enroll_off' do
+        it 'disables enrollment' do
+          showtime.update_attribute(:enrollable, true)
+          post :enroll_off, { id: showtime.id }
+          expect(showtime.reload.enrollable).to eq false
+        end
       end
     end
   end

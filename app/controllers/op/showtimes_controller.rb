@@ -1,7 +1,7 @@
 class Op::ShowtimesController < ApplicationController
   layout :resolve_layout
   before_action :authenticate_admin
-  before_action :set_showtime, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_showtime, only: [ :show, :edit, :update, :destroy, :enroll_on, :enroll_off ]
   before_action :set_hidden_show_id_field, only: [ :new, :edit, :update, :create ]
   before_action :enable_render_op_links
 
@@ -26,6 +26,24 @@ class Op::ShowtimesController < ApplicationController
 
   # GET /op/showtimes/1/edit
   def edit
+  end
+
+  # POST /op/showtimes/1/enrollment
+  # Enable showtime enrollment
+  def enroll_on
+    @showtime.update_attribute(:enrollable, true)
+    respond_to do |format|
+      format.html { redirect_to [ :op, @showtime ], notice: '开启报名成功。' }
+    end
+  end
+
+  # DELETE /op/showtimes/1/enrollment
+  # Disable showtime enrollment
+  def enroll_off
+    @showtime.update_attribute(:enrollable, false)
+    respond_to do |format|
+      format.html { redirect_to [ :op, @showtime ], notice: '关闭报名成功。' }
+    end
   end
 
   # POST /op/showtimes
@@ -69,27 +87,26 @@ class Op::ShowtimesController < ApplicationController
   end
 
   private
-    def resolve_layout
-      case action_name
-      when 'index', 'show'
-        'layouts/panel'
-      else
-        'layouts/panel_grid'
-      end
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_showtime
-      @showtime = Showtime.find(params[:id])
+  def resolve_layout
+    case action_name
+    when 'index', 'show'
+      'layouts/panel'
+    else
+      'layouts/panel_grid'
     end
+  end
 
-    # Hide 'Show ID' field if necessary
-    def set_hidden_show_id_field
-      @hidden_show_id_field = !!params[:hidden_show_id_field]
-    end
+  def set_showtime
+    @showtime = Showtime.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def showtime_params
-      params.require(:showtime).permit(:show_id, :title, :description, :starts_at, :ends_at, :ongoing)
-    end
+  # Hide 'Show ID' field if necessary
+  def set_hidden_show_id_field
+    @hidden_show_id_field = !!params[:hidden_show_id_field]
+  end
+
+  def showtime_params
+    params.require(:showtime).permit(:show_id, :title, :description, :starts_at, :ends_at, :ongoing)
+  end
 end

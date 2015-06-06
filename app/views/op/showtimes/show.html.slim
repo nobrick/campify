@@ -34,25 +34,47 @@
     strong
       ' 活动场次状态：
     = ongoing_status(@showtime.ongoing)
-  p
-    strong
-      ' 竞投状态：
-    = @showtime.ballot.present? ? "竞投进行中（#{l @ballot.expires_at}过期）" : '竞投未开启'
-    - if @showtime.ballot.present?
-      .col-md-4
-        ul.list-group
-          - University.all.each do |university|
-            li.list-group-item
-              span.badge = university.votes_count_for(@showtime)
-              = university.name
 - content_for :after_panel
   .panel.panel-success
     .panel-heading
+      ' 报名管理
+      - if @showtime.enrollable?
+        .pull-right
+          = link_to '关闭报名', enroll_op_showtime_path(@showtime), data: { confirm: '你确实要关闭报名吗？' }, method: :delete, class: 'btn-sm btn-danger'
+    .panel-body
+      p
+        strong
+          ' 当前报名状态：
+        - if @showtime.enrollable?
+          ' 报名进行中
+          p
+            strong
+              ' 当前报名用户：
+            = @showtime.enrollees.map { |u| "#{u.nickname} @#{u.username}" }.join(' | ')
+        - else
+          ' 报名未开启
+          p = link_to '开启报名', enroll_op_showtime_path(@showtime), class: 'btn btn-success', method: :post
+  .panel.panel-success
+    .panel-heading
       ' 竞投管理
-      - if @showtime.ballot.present?
+      - if @ballot.persisted?
         .pull-right
           = link_to '取消竞投', op_showtime_ballot_path(@showtime), data: { confirm: '你确实要取消投票吗？' }, method: :delete, class: 'btn-sm btn-danger'
     .panel-body
+      p
+        strong
+          ' 当前竞投状态：
+        - if @ballot.new_record?
+          ' 竞投未开启
+        - else
+          ' 竞投进行中（#{l @ballot.expires_at}过期）
+          .row
+            .col-md-4
+              ul.list-group
+                - University.all.each do |university|
+                  li.list-group-item
+                    span.badge = university.votes_count_for(@showtime)
+                    = university.name
       - if @ballot.present?
         = form_for @ballot, as: :ballot, url: op_showtime_ballot_path(@showtime) do |f|
           = render 'shared/error_messages', form: f

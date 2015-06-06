@@ -5,4 +5,9 @@ class Enrollment < ActiveRecord::Base
   validates :user, presence: true
   validates :showtime, presence: true
   validates :showtime, uniqueness: { scope: :user }
+  validate :showtime_enrollable, on: :create
+
+  def showtime_enrollable
+    errors.add(:showtime, '未开启报名') unless showtime.enrollable
+  end
 end

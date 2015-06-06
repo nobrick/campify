@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     resources :shows
     resources :showtimes do
       resource :ballot, only: [ :create, :update, :destroy ], controller: 'campus_ballots'
+      member do
+        post 'enroll', to: 'showtimes#enroll_on'
+        delete 'enroll', to: 'showtimes#enroll_off'
+      end
     end
     resources :universities
   end

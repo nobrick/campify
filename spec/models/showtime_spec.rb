@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Showtime, type: :model do
   let(:showtime) { create :showtime }
+  let(:showtime_enrollable) { create :showtime, enrollable: true }
   let(:user) { create :user }
 
   it 'creates showtime model' do
@@ -17,9 +18,9 @@ RSpec.describe Showtime, type: :model do
     expect(showtime).not_to be_valid
   end
 
-  it 'associates members' do
-    create :enrollment, showtime_id: showtime.id, user_id: user.id
-    expect(showtime.members).to eq [ user ]
+  it 'associates enrollees' do
+    create :enrollment, showtime_id: showtime_enrollable.id, user_id: user.id
+    expect(showtime_enrollable.enrollees).to eq [ user ]
   end
 
   describe 'associated ballot' do
@@ -44,7 +45,7 @@ RSpec.describe Showtime, type: :model do
 
   describe '.enrolled_by(user)' do
     let(:another_user) { create :user }
-    let(:showtimes) { 3.times.collect { create :showtime } }
+    let(:showtimes) { 3.times.collect { create :showtime, enrollable: true } }
 
     it 'lists showtimes enrolled by the user ordered by enrollment time' do
       enrollments = [

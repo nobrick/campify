@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Uni::EnrollmentsController, type: :controller do
   let(:user) { create :user }
-  let(:showtime) { create :showtime }
+  let(:showtime) { create :showtime, enrollable: true }
   let(:valid_attributes) { { showtime_id: showtime.id } }
   context 'User not signed in' do
     describe 'Actions' do

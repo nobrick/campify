@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603143141) do
+ActiveRecord::Schema.define(version: 20150606040248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,18 +65,20 @@ ActiveRecord::Schema.define(version: 20150603143141) do
   add_index "shows", ["proposer_id"], name: "index_shows_on_proposer_id", using: :btree
 
   create_table "showtimes", force: :cascade do |t|
-    t.integer  "show_id",                    null: false
-    t.string   "title",                      null: false
+    t.integer  "show_id",                     null: false
+    t.string   "title",                       null: false
     t.text     "description"
-    t.datetime "starts_at",                  null: false
-    t.datetime "ends_at",                    null: false
+    t.datetime "starts_at",                   null: false
+    t.datetime "ends_at",                     null: false
     t.boolean  "ongoing",     default: true
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "enrollable",  default: false
   end
 
   add_index "showtimes", ["created_at"], name: "index_showtimes_on_created_at", order: {"created_at"=>:desc}, using: :btree
   add_index "showtimes", ["ends_at"], name: "index_showtimes_on_ends_at", using: :btree
+  add_index "showtimes", ["enrollable"], name: "index_showtimes_on_enrollable", using: :btree
   add_index "showtimes", ["ongoing"], name: "index_showtimes_on_ongoing", using: :btree
   add_index "showtimes", ["show_id"], name: "index_showtimes_on_show_id", using: :btree
   add_index "showtimes", ["starts_at"], name: "index_showtimes_on_starts_at", using: :btree
