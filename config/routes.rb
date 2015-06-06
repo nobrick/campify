@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   # namespace for product operators
   namespace :op do
     resources :shows
-    resources :showtimes
+    resources :showtimes do
+      resource :ballot, only: [ :create, :update, :destroy ], controller: 'campus_ballots'
+    end
     resources :universities
   end
 
@@ -13,7 +15,9 @@ Rails.application.routes.draw do
   namespace :uni do
     devise_for :users, module: 'uni/users', path: 'account'
     resources :enrollments, only: [ :create, :destroy ]
-    resources :showtimes, only: [ :show ]
+    resources :showtimes, only: [ :show ] do
+      resource :vote, only: [ :create ], controller: 'campus_votes'
+    end
     get 'profile/show'
   end
 

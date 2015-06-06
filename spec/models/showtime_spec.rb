@@ -22,6 +22,18 @@ RSpec.describe Showtime, type: :model do
     expect(showtime.members).to eq [ user ]
   end
 
+  describe 'associated ballot' do
+    let!(:ballot) { create :campus_ballot, showtime_id: showtime.id }
+
+    it 'has one ballot' do
+      expect(showtime.ballot).to eq ballot
+    end
+
+    it 'destorys dependent models when showtime destroyed' do
+      expect { showtime.destroy }.to change(CampusBallot, :count).by -1
+    end
+  end
+
   describe '.ongoing' do
     it 'lists ongoing showtimes' do
       showtime_ongoing = create :showtime, ongoing: true

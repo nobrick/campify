@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :proposed_shows, class_name: 'Show', foreign_key: :proposer_id
   has_many :enrollments
   has_many :showtimes, through: :enrollments
+  has_many :votes, class_name: 'CampusVote'
 
   validates :username,
     presence: true,
@@ -44,5 +45,15 @@ class User < ActiveRecord::Base
     else
       where(conditions.to_h).first
     end
+  end
+
+  def vote_for?(showtime)
+    CampusVote.exists?(user_id: id, ballot_id: showtime.ballot)
+  end
+
+  def vote_for(showtime, university)
+    ballot = showtime.ballot
+    raise ActiveRecord::RecordNotFound.new('Ballot not enabled') if ballot.nil?
+    CampusVote.create(user_id: id, ballot_id: ballot.id, university_id: university.id).persisted?
   end
 end
