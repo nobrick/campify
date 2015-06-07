@@ -1,4 +1,5 @@
 class University < ActiveRecord::Base
+  has_many :users, dependent: :nullify
   has_many :votes, class_name: 'CampusVote', dependent: :destroy
 
   validates :name, presence: true, length: { in: 1..30 }

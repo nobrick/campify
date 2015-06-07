@@ -6,10 +6,12 @@ class User < ActiveRecord::Base
   devise :omniauthable, omniauth_providers: [ :wechat ]
   attr_accessor :login
 
+  belongs_to :university
   has_many :proposed_shows, class_name: 'Show', foreign_key: :proposer_id
   has_many :enrollments
   has_many :showtimes, through: :enrollments
   has_many :votes, class_name: 'CampusVote'
+  before_save -> { self.university = nil if self.university_id == -1 } 
 
   validates :username,
     presence: true,
@@ -19,6 +21,7 @@ class User < ActiveRecord::Base
   validates :password, length: { in: 6..128 }
   validates :bio, length: { maximum: 140 }
   validates :uid, uniqueness: { scope: :provider }, if: 'uid.present?'
+  validates :university_id, presence: true, on: :create
 
   def self.find_by_omniauth(auth)
     find_by(provider: auth.provider, uid: auth.uid)
@@ -56,4 +59,5 @@ class User < ActiveRecord::Base
     raise ActiveRecord::RecordNotFound.new('Ballot not enabled') if ballot.nil?
     CampusVote.create(user_id: id, ballot_id: ballot.id, university_id: university.id).persisted?
   end
+
 end

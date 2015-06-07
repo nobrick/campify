@@ -6,5 +6,6 @@ FactoryGirl.define do
     admin false
     coins 0
     bio ''
+    university
   end
 end

@@ -13,6 +13,7 @@ zh-CN:
       user:
         username: '用户名'
         nickname: '昵称'
+        university_id: '所在学校'
         bio: '个性签名'
         coins: '积分'
         password: '密码'

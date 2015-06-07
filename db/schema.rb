@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606040248) do
+ActiveRecord::Schema.define(version: 20150606131831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20150606040248) do
     t.string   "city"
     t.string   "country"
     t.string   "wechat_headimgurl"
+    t.integer  "university_id"
   end
 
   add_index "users", ["admin"], name: "index_users_on_admin", using: :btree
@@ -128,6 +129,7 @@ ActiveRecord::Schema.define(version: 20150606040248) do
   add_index "users", ["province"], name: "index_users_on_province", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
+  add_index "users", ["university_id"], name: "index_users_on_university_id", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "campus_ballots", "showtimes"
@@ -138,4 +140,5 @@ ActiveRecord::Schema.define(version: 20150606040248) do
   add_foreign_key "enrollments", "users"
   add_foreign_key "shows", "users", column: "proposer_id"
   add_foreign_key "showtimes", "shows"
+  add_foreign_key "users", "universities"
 end

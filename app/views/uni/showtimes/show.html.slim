@@ -20,7 +20,7 @@
         .panel-heading
           ' 校园竞投
         .panel-body
-          - if current_uni_user.vote_for?(@showtime)
+          - if current_uni_user.try(:vote_for?, @showtime)
             p 感谢您参与投票。当前投票结果：
             - University.all.each do |university|
               li.list-group-item

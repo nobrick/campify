@@ -16,13 +16,18 @@
       br
       = f.text_field :nickname
     .form-group
+      = f.label :university_id, '所在学校'
+      br
+      /= f.collection_select(:university_id, University.all, :id, :name, include_blank: true)
+      = f.select(:university_id, University.all.collect { |u| [ u.name, u.id ] }.push([ '其它', -1 ]), prompt: true)
+    .form-group
       = f.label :password, '密码'
       br
-      = f.password_field :password, autocomplete: "off"
+      = f.password_field :password, autocomplete: 'off'
     .form-group
       = f.label :password_confirmation, '密码确认'
       br
-      = f.password_field :password_confirmation, autocomplete: "off"
+      = f.password_field :password_confirmation, autocomplete: 'off'
     .form-group
       = f.label :bio, '个性签名'
       br

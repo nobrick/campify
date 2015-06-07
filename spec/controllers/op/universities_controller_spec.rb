@@ -12,7 +12,7 @@ RSpec.describe Op::UniversitiesController, type: :controller do
     describe 'GET #index' do
       it 'assigns all universities as @universities' do
         get :index
-        expect(assigns(:universities)).to eq [ university ]
+        expect(assigns(:universities)).to include university
       end
     end
 
