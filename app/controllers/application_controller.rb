@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin
-    unless uni_user_signed_in? && current_uni_user.admin?
-      redirect_to home_index_path, notice: '请以管理员身份登录。'
+    unless current_uni_user.try(:admin?)
+      redirect_to root_path, notice: '请以管理员身份登录。'
     end
   end
 

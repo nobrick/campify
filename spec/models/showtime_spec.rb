@@ -43,6 +43,26 @@ RSpec.describe Showtime, type: :model do
     end
   end
 
+  describe '.enrollable' do
+    it 'lists enrollable showtimes' do
+      showtime_1 = create :showtime, enrollable: true
+      showtime_2 = create :showtime, enrollable: false
+      showtime_3 = create :showtime, enrollable: true
+      expect(Showtime.enrollable).to eq [ showtime_3, showtime_1 ]
+    end
+  end
+
+  describe '.on_ballot' do
+    it 'lists showtimes on ballot' do
+      showtime_1 = create :showtime
+      showtime_2 = create :showtime
+      showtime_3 = create :showtime
+      create :campus_ballot, showtime_id: showtime_3.id
+      create :campus_ballot, showtime_id: showtime_1.id
+      expect(Showtime.on_ballot).to eq [ showtime_3, showtime_1 ]
+    end
+  end
+
   describe '.enrolled_by(user)' do
     let(:another_user) { create :user }
     let(:showtimes) { 3.times.collect { create :showtime, enrollable: true } }

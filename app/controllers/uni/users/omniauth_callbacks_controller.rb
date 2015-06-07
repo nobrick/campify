@@ -39,7 +39,7 @@ class Uni::Users::OmniauthCallbacksController < Devise::OmniauthCallbacksControl
   private
 
   def redirect_to_failure_path
-    redirect_to home_index_path, alert: '获取您的微信资料失败，请稍后重试'
+    redirect_to root_path, alert: '获取您的微信资料失败，请稍后重试'
   end
 
   # protected

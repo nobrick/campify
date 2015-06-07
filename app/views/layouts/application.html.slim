@@ -20,10 +20,14 @@ html
             = fa_icon('magic', class: 't-navbar-button')
         #navbar-collapse.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
+            li
+              = link_to '公众活动', uni_showtimes_enroll_path
+            li
+              = link_to '校园PK', uni_showtimes_pk_path
+            li.devider
             - if uni_user_signed_in?
               li
                 = link_to "Hi, #{current_uni_user.nickname || current_uni_user.username}", uni_profile_show_path
-              li.divider
               li
                 = link_to '注销', destroy_uni_user_session_path, method: :delete
             - elsif wechat_request?

@@ -1,28 +1,30 @@
 Rails.application.routes.draw do
-  root 'home#index'
-  get 'home/index'
+  root 'uni/showtimes#index'
 
   # namespace for product operators
   namespace :op do
     resources :shows
     resources :showtimes do
-      resource :ballot, only: [ :create, :update, :destroy ], controller: 'campus_ballots'
       member do
         post 'enroll', to: 'showtimes#enroll_on'
         delete 'enroll', to: 'showtimes#enroll_off'
       end
+      resource :ballot, only: [ :create, :update, :destroy ], controller: 'campus_ballots'
     end
     resources :universities
   end
 
   # namespace for university students
   namespace :uni do
+    get 'profile/show'
+    get 'showtimes/pk', to: 'showtimes#index', s_filter: 'pk'
+    get 'showtimes/enroll', to: 'showtimes#index', s_filter: 'enr'
+
     devise_for :users, module: 'uni/users', path: 'account'
     resources :enrollments, only: [ :create, :destroy ]
-    resources :showtimes, only: [ :show ] do
+    resources :showtimes, only: [ :index, :show ] do
       resource :vote, only: [ :create ], controller: 'campus_votes'
     end
-    get 'profile/show'
   end
 
   namespace :api do
