@@ -35,3 +35,6 @@ public/assets
 # Ignore wechat tokens config.
 /config/wechat.yml
 /config/wechat
+
+# Ignore redis config
+/config/redis.yml
