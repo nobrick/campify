@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @showtime = Showtime.ongoing
+    @showtimes = Showtime.ongoing
   end
 end
