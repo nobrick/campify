@@ -11,6 +11,22 @@ class CampusBallot < ActiveRecord::Base
   validates :expires_at, presence: true
   validate :expires_at_must_be_in_future
 
+  def users_with_votes_for_own_uni(university)
+    votes.includes(:user)
+      .where(university_id: university.id, vote_for_own_uni: true)
+      .map { |v| v.user }
+  end
+
+  def most_voted_universities
+    return [] if id.nil?
+    score = votes_rank[votes_rank.last]
+    University.find votes_rank.revrangebyscore(score, score)
+  end
+
+  # def university_ids_with_votes_count
+    # votes_rank.members(with_scores: true)
+  # end
+
   private
 
   def expires_at_must_be_in_future

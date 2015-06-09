@@ -33,4 +33,44 @@ RSpec.describe CampusBallot, type: :model do
       expect(votes_rank[uni_id]).to eq 0
     end
   end
+
+  describe '#users_with_votes_for_own' do
+    let(:universities) { 2.times.collect { create :university } }
+
+    it 'lists all users that votes for her own universities' do
+      uni_ids = [ 0, 0, 1, 1 ].collect { |i| universities[i].id }
+      # Add a user with non-listed university (-1 to set user university_id to nil)
+      uni_ids << -1
+      users = 5.times.collect { |i| create :user, university_id: uni_ids[i] }
+
+      uni_ids = [ 0, 0, 0, 1, 1 ].collect { |i| universities[i].id }
+      5.times.collect { |i| create_vote user_id: users[i].id, university_id: uni_ids[i] }
+
+      expect(ballot.users_with_votes_for_own_uni(universities[0]))
+        .to eq [ users[0], users[1] ]
+      expect(ballot.users_with_votes_for_own_uni(universities[1]))
+        .to eq [ users[3] ]
+    end
+  end
+
+  describe '#most_voted_universities' do
+    let(:universities) { 3.times.collect { create :university } }
+
+    it 'lists most voted universities' do
+      vote_times = [ 3, 5, 5 ]
+      3.times do |i|
+        vote_times[i].times { create_vote university_id: universities[i].id }
+      end
+
+      expect(ballot.most_voted_universities.count).to eq 2
+      [ 1, 2 ].each do |i|
+        expect(ballot.most_voted_universities).to include universities[i]
+      end
+    end
+  end
+
+  def create_vote(options = {})
+    params = { ballot_id: ballot.id }
+    create :campus_vote, params.merge!(options)
+  end
 end

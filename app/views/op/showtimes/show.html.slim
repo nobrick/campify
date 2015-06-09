@@ -55,18 +55,17 @@
           ' 报名未开启
           p = link_to '开启报名', enroll_op_showtime_path(@showtime), class: 'btn btn-success', method: :post
   .panel.panel-success
+    - ballot_on = @ballot.persisted?
     .panel-heading
       ' 竞投管理
-      - if @ballot.persisted?
+      - if ballot_on
         .pull-right
           = link_to '取消竞投', op_showtime_ballot_path(@showtime), data: { confirm: '你确实要取消投票吗？' }, method: :delete, class: 'btn-sm btn-danger'
     .panel-body
       p
         strong
           ' 当前竞投状态：
-        - if @ballot.new_record?
-          ' 竞投未开启
-        - else
+        - if ballot_on
           ' 竞投进行中（#{l @ballot.expires_at}过期）
           .row
             .col-md-4
@@ -75,6 +74,13 @@
                   li.list-group-item
                     span.badge = university.votes_count_for(@showtime)
                     = university.name
+          - @ballot.most_voted_universities.each do |university|
+            p
+              strong
+                ' 投票给 #{university.name} 且母校为该校的用户：
+              = @ballot.users_with_votes_for_own_uni(university).map { |u| "#{u.nickname} @#{u.username}" }.join(' | ')
+        - else
+          ' 竞投未开启
       - if @ballot.present?
         = form_for @ballot, as: :ballot, url: op_showtime_ballot_path(@showtime) do |f|
           = render 'shared/error_messages', form: f
