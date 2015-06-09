@@ -5,6 +5,7 @@ class CampusBallot < ActiveRecord::Base
   has_many :votes, class_name: 'CampusVote',
     foreign_key: 'ballot_id', dependent: :destroy
   sorted_set :votes_rank
+  after_destroy :reset_votes_rank
 
   validates :showtime, presence: true
   validates :expires_at, presence: true
@@ -14,5 +15,9 @@ class CampusBallot < ActiveRecord::Base
 
   def expires_at_must_be_in_future
     errors.add(:expires_at, '必须大于当前时间') if expires_at && expires_at < Time.now
+  end
+
+  def reset_votes_rank
+    votes_rank.clear
   end
 end
