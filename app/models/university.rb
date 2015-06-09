@@ -6,7 +6,6 @@ class University < ActiveRecord::Base
   validates :city, length: { in: 1..15 }
 
   def votes_count_for(showtime)
-    # TODO Counter cache
-    CampusVote.where(ballot_id: showtime.ballot.id, university_id: id).count
+    showtime.ballot.votes_rank[id].to_int
   end
 end
