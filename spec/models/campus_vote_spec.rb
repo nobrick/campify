@@ -10,8 +10,6 @@ RSpec.describe CampusVote, type: :model do
   end
 
   describe 'redis counter cache' do
-    before { Redis::Objects.redis.flushdb }
-
     it 'increments after model creation' do
       2.times { expect { create_vote }.to change { count_by_redis }.by 1 }
     end
