@@ -12,7 +12,7 @@ namespace :admin do
 
   desc 'Add admin user'
   task :add, [ :username, :email, :password ] => [ :environment ] do |t, args|
-    params = { username: args.username, email: args.email, password: args.password, admin: true }
+    params = { username: args.username, email: args.email, password: args.password, admin: true, university_id: -1 }
     user = User.create!(params)
     puts "Added #{user.username} successfully."
   end
