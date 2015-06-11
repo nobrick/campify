@@ -4,7 +4,7 @@ class Showtime < ActiveRecord::Base
   has_many :enrollees, -> { order('enrollments.created_at asc') },
     through: :enrollments, source: :user
   has_one :ballot, class_name: 'CampusBallot', dependent: :destroy
-  # has_many :most_voted_universities, -> { TODO }
+  has_one :lottery_event, dependent: :destroy
 
   after_initialize :default_values
 

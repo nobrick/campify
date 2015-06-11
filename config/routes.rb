@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         delete 'enroll', to: 'showtimes#enroll_off'
       end
       resource :ballot, only: [ :create, :update, :destroy ], controller: 'campus_ballots'
+      resource :lottery_event, only: [ :create, :update, :destroy ]
     end
     resources :universities
   end

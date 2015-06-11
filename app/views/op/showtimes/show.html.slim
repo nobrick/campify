@@ -1,3 +1,4 @@
+- set_default_instances
 - content_for :panel_heading
   ' 活动场次
   = @showtime.id
@@ -66,7 +67,7 @@
         strong
           ' 当前竞投状态：
         - if ballot_on
-          ' 竞投进行中（#{l @ballot.expires_at}过期）
+          ' 竞投进行中（#{l @ballot.expires_at} 过期）
           .row
             .col-md-4
               ul.list-group
@@ -84,8 +85,53 @@
       - if @ballot.present?
         = form_for @ballot, as: :ballot, url: op_showtime_ballot_path(@showtime) do |f|
           = render 'shared/error_messages', form: f
-          .field.form-group
-            => f.label :expires_at
-            = f.datetime_select :expires_at, class: 'form-control'
-          .actions
-            = f.submit nil, class: 'btn btn-success'
+          .well
+            .field.form-group
+              => f.label :expires_at
+              br
+              = f.datetime_select :expires_at, class: 'form-control'
+            .actions
+              = f.submit nil, class: 'btn btn-success'
+
+  #lottery_panel.panel.panel-success
+    - lottery_on = @lottery_event.persisted?
+    .panel-heading
+      ' 抽奖管理
+      - if lottery_on
+        .pull-right
+          = link_to '取消抽奖', op_showtime_lottery_event_path(@showtime) + '#lottery_panel', data: { confirm: '你确实要取消抽奖吗？' }, method: :delete, class: 'btn-sm btn-danger'
+    .panel-body
+      p
+        strong
+          ' 当前抽奖状态：
+        - if lottery_on
+          ' 已设置抽奖（#{l @lottery_event.draws_at} 抽奖）
+          p
+            strong
+              ' 当前奖品数量：
+            = @lottery_event.prizes_num
+          p
+            strong
+              ' 当前抽奖方式：
+            = @lottery_event.lottery_rule
+        - else
+          ' 抽奖未开启
+      - if @lottery_event.present?
+        = form_for @lottery_event, url: op_showtime_lottery_event_path(@showtime) do |f|
+          = render 'shared/error_messages', form: f
+          .well
+            .field.form-group
+              => f.label :draws_at
+              br
+              = f.datetime_select :draws_at, class: 'form-control'
+            .row
+              .col-md-4
+                .field.form-group
+                  => f.label :prizes_num
+                  = f.number_field :prizes_num, min:1, max: 1000, class: 'form-control'
+            .field.form-group
+              => f.label :lottery_rule
+              br
+              = f.select :lottery_rule, [ [ '报名抽奖', 'enrollment' ], [ '投票抽奖', 'ballot' ] ], prompt: true
+            .actions
+              = f.submit nil, class: 'btn btn-success'
