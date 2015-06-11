@@ -2,7 +2,7 @@
 # lock '3.4.0'
 
 set :application, 'campify'
-set :linked_files, %w{ config/database.yml config/secrets.yml config/unicorn.rb config/wechat.yml }
+set :linked_files, %w{ config/database.yml config/secrets.yml config/unicorn.rb config/wechat.yml config/redis.yml }
 set :linked_dirs, %w{ log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system }
 # set :linked_dirs, fetch(:linked_dirs).push(%w{public/assets})
 set :keep_releases, 5
@@ -74,7 +74,7 @@ namespace :deploy do
     on roles(:web) do
       within release_path do
         with rails_env: :production do
-          execute :rake, 'db:setup'
+          execute :rake, 'db:migrate'
         end
       end
     end
