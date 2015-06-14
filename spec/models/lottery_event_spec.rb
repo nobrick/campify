@@ -32,9 +32,9 @@ RSpec.describe LotteryEvent, type: :model do
         end
         expect { create_lottery_event.call }.to raise_error ActiveRecord::RecordInvalid
 
-        showtime.update_attribute(:enrollable, true)
+        showtime.update_column(:enrollable, true)
         create :enrollment, showtime_id: showtime.id, user_id: create(:user).id
-        showtime.update_attribute(:enrollable, false)
+        showtime.update_column(:enrollable, false)
         expect { create_lottery_event.call }.not_to raise_error
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe LotteryEvent, type: :model do
 
   describe '#drawn' do
     it 'cannot save if drawn' do
-      lottery_event.update_attribute(:drawn, true)
+      lottery_event.update_column(:drawn, true)
       expect(lottery_event.reload.valid?).to be_falsy
     end
   end
@@ -52,12 +52,22 @@ RSpec.describe LotteryEvent, type: :model do
     let(:prizes_num) { 5 }
 
     shared_examples_for :draw_success do
+      # Group examples together to save costs for creating user list
       it 'draws lotteries for lucky users' do
         expect(lottery_event.draw).to eq true
         winners = lottery_event.winners
         expect(lottery_event.last_failure_code.value).to be_blank
         expect(winners.count).to eq prizes_num
+
+        # All winners must be candidates
         expect(candidates & winners).to eq winners
+
+        # Ensure randomization
+        previous_winners_ids = winners.map { |u| u.id }.sort
+        reset_lottery_event(lottery_event)
+        lottery_event.draw
+        winners_ids = lottery_event.winners.reload.map { |u| u.id }.sort
+        expect(previous_winners_ids).not_to eq(winners_ids)
       end
     end
 
@@ -132,12 +142,21 @@ RSpec.describe LotteryEvent, type: :model do
         create :campus_ballot, showtime_id: showtime.id
         user_fixtures.each do |s|
           s[:users].each do |user|
-            user.update_attribute(:university_id, s[:uni_belongs_to].id)
+            user.update_column(:university_id, s[:uni_belongs_to].id)
             user.vote_for(showtime, s[:uni_votes_for])
           end
         end
       end
+    end
 
+    def reset_lottery_event(event)
+      event.update_column(:drawn, false)
+
+      # Delete all associated lotteries as well as winners cache
+      lottery_event.winners.destroy_all
+      # Or use:
+      # lottery_event.lotteries.destroy_all
+      # lottery_event.winners.reload
     end
   end
 end

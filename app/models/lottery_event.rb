@@ -29,7 +29,7 @@ class LotteryEvent < ActiveRecord::Base
     return false if drawn?
     users = determine_candidates
     return false if users.nil?
-    ones = users.order('random()').limit(prizes_num)
+    ones = users.select(:id).reorder('RANDOM()').limit(prizes_num)
 
     ret = lotteries.create(ones.map { |u| { user_id: u.id } }) { |l| l.hit = true }
     if ret
