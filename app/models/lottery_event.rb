@@ -79,9 +79,7 @@ class LotteryEvent < ActiveRecord::Base
   end
 
   def schedule_lottery_event
-    if changed_attributes.keys.include? :draws_at
-      job_id.value = LotteryWorker.perform_at(draws_at, id)
-    end
+    job_id.value = LotteryWorker.perform_at(draws_at, id)
   end
 
   def cancel_lottery_event
