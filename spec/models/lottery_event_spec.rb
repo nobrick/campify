@@ -15,20 +15,27 @@ RSpec.describe LotteryEvent, type: :model do
     end
 
     context 'when rule equals to ballot' do
-      let(:invalid_showtime) { create :showtime, ballot: nil }
+      let(:showtime) { create :showtime, ballot: nil }
 
       it 'must be after creating showtime ballot' do
-        expect { create :lottery_event, lottery_rule: 'ballot', showtime_id: invalid_showtime.id }
+        expect { create :lottery_event, lottery_rule: 'ballot', showtime_id: showtime.id }
           .to raise_error ActiveRecord::RecordInvalid
       end
     end
 
     context 'when rule equals to enrollment' do
-      let(:invalid_showtime) { create :showtime, enrollable: false }
+      let(:showtime) { create :showtime, enrollable: false }
 
-      it 'must be after showtime enrollable turned on' do
-        expect { create :lottery_event, lottery_rule: 'enrollment', showtime_id: invalid_showtime.id }
-          .to raise_error ActiveRecord::RecordInvalid
+      it 'must be after showtime enrollable turned on or enrollments exist' do
+        create_lottery_event = lambda do
+          create :lottery_event, lottery_rule: 'enrollment', showtime_id: showtime.id
+        end
+        expect { create_lottery_event.call }.to raise_error ActiveRecord::RecordInvalid
+
+        showtime.update_attribute(:enrollable, true)
+        create :enrollment, showtime_id: showtime.id, user_id: create(:user).id
+        showtime.update_attribute(:enrollable, false)
+        expect { create_lottery_event.call }.not_to raise_error
       end
     end
   end

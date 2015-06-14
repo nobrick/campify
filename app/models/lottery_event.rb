@@ -59,7 +59,9 @@ class LotteryEvent < ActiveRecord::Base
   def check_lottery_rule
     case lottery_rule
     when 'enrollment'
-      errors.add(:lottery_rule, '无效，报名尚未开启') unless showtime.enrollable?
+      unless showtime.enrollable? || showtime.enrollments.present?
+        errors.add(:lottery_rule, '无效，报名尚未开启')
+      end
     when 'ballot'
       errors.add(:lottery_rule, '无效，投票尚未开启') unless showtime.ballot
     else
