@@ -5,5 +5,6 @@ FactoryGirl.define do
     lottery_rule "enrollment"
     prizes_num 1
     prize_type 'normal'
+    drawn false
   end
 end

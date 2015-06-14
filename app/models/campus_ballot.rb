@@ -12,9 +12,8 @@ class CampusBallot < ActiveRecord::Base
   validate :expires_at_must_be_in_future
 
   def users_with_votes_for_own_uni(university)
-    votes.includes(:user)
-      .where(university_id: university.id, vote_for_own_uni: true)
-      .map { |v| v.user }
+    query_hash = { ballot_id: id, university_id: university.id, vote_for_own_uni: true }
+    User.includes(:votes).where(campus_votes: query_hash)
   end
 
   def most_voted_universities

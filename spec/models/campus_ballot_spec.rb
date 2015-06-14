@@ -34,7 +34,7 @@ RSpec.describe CampusBallot, type: :model do
     end
   end
 
-  describe '#users_with_votes_for_own' do
+  describe '#users_with_votes_for_own_uni' do
     let(:universities) { 2.times.collect { create :university } }
 
     it 'lists all users that votes for her own universities' do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610051129) do
+ActiveRecord::Schema.define(version: 20150612144231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,19 @@ ActiveRecord::Schema.define(version: 20150610051129) do
   add_index "enrollments", ["showtime_id"], name: "index_enrollments_on_showtime_id", using: :btree
   add_index "enrollments", ["user_id"], name: "index_enrollments_on_user_id", using: :btree
 
+  create_table "lotteries", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "lottery_event_id"
+    t.boolean  "hit",              default: false
+    t.datetime "hits_at"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "lotteries", ["hit"], name: "index_lotteries_on_hit", using: :btree
+  add_index "lotteries", ["lottery_event_id"], name: "index_lotteries_on_lottery_event_id", using: :btree
+  add_index "lotteries", ["user_id"], name: "index_lotteries_on_user_id", using: :btree
+
   create_table "lottery_events", force: :cascade do |t|
     t.integer  "showtime_id",                     null: false
     t.datetime "draws_at",                        null: false
@@ -60,8 +73,10 @@ ActiveRecord::Schema.define(version: 20150610051129) do
     t.string   "prize_type",   default: "normal", null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.boolean  "drawn",        default: false
   end
 
+  add_index "lottery_events", ["drawn"], name: "index_lottery_events_on_drawn", using: :btree
   add_index "lottery_events", ["draws_at"], name: "index_lottery_events_on_draws_at", using: :btree
   add_index "lottery_events", ["lottery_rule"], name: "index_lottery_events_on_lottery_rule", using: :btree
   add_index "lottery_events", ["prize_type"], name: "index_lottery_events_on_prize_type", using: :btree
@@ -153,6 +168,8 @@ ActiveRecord::Schema.define(version: 20150610051129) do
   add_foreign_key "campus_votes", "users"
   add_foreign_key "enrollments", "showtimes"
   add_foreign_key "enrollments", "users"
+  add_foreign_key "lotteries", "lottery_events"
+  add_foreign_key "lotteries", "users"
   add_foreign_key "lottery_events", "showtimes"
   add_foreign_key "shows", "users", column: "proposer_id"
   add_foreign_key "showtimes", "shows"

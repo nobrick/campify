@@ -19,11 +19,10 @@ class Showtime < ActiveRecord::Base
     .order(created_at: :desc) }
   scope :on_ballot, -> { includes(:ballot).where.not('campus_ballots.id' => nil)
     .order(created_at: :desc) }
-
-  def self.enrolled_by(user)
+  scope :enrolled_by, -> user {
     joins(:enrollments).where(enrollments: { user_id: user.id })
       .order('enrollments.created_at desc')
-  end
+  }
 
   private
 
