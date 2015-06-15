@@ -17,10 +17,9 @@ class Uni::EnrollmentsController < ApplicationController
 
   # DELETE /uni/enrollments/1
   def destroy
-    allowed = @enrollment.present?
-    @enrollment.destroy if allowed
+    @enrollment.try(:destroy)
     respond_to do |format|
-      if allowed
+      if @enrollment.present?
         format.html { redirect_to uni_profile_show_path, notice: '取消报名成功。' }
       else
         format.html { redirect_to uni_profile_show_path, alert: '取消报名失败。' }

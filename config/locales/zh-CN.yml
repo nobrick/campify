@@ -9,6 +9,7 @@ zh-CN:
       showtime: '活动场次'
       university: '大学'
       campus_ballot: '校园竞投'
+      lottery_event: '抽奖事件'
     attributes:
       user:
         username: '用户名'
@@ -38,6 +39,12 @@ zh-CN:
         location: '地址'
       campus_ballot:
         expires_at: '过期时间'
+      lottery_event:
+        showtime: '活动场次'
+        draws_at: '抽奖时间'
+        lottery_rule: '抽奖资格获得方式'
+        prizes_num: '奖品数量'
+        prize_type: '奖品类型'
   sign_in: '登录'
   sign_up: '新用户'
   password: '密码'

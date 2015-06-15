@@ -1,4 +1,10 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  authenticate :uni_user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   root 'uni/showtimes#index'
 
   # namespace for product operators
@@ -10,6 +16,7 @@ Rails.application.routes.draw do
         delete 'enroll', to: 'showtimes#enroll_off'
       end
       resource :ballot, only: [ :create, :update, :destroy ], controller: 'campus_ballots'
+      resource :lottery_event, only: [ :create, :update, :destroy ]
     end
     resources :universities
   end

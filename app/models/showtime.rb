@@ -4,7 +4,7 @@ class Showtime < ActiveRecord::Base
   has_many :enrollees, -> { order('enrollments.created_at asc') },
     through: :enrollments, source: :user
   has_one :ballot, class_name: 'CampusBallot', dependent: :destroy
-  # has_many :most_voted_universities, -> { TODO }
+  has_one :lottery_event, dependent: :destroy
 
   after_initialize :default_values
 
@@ -19,11 +19,10 @@ class Showtime < ActiveRecord::Base
     .order(created_at: :desc) }
   scope :on_ballot, -> { includes(:ballot).where.not('campus_ballots.id' => nil)
     .order(created_at: :desc) }
-
-  def self.enrolled_by(user)
+  scope :enrolled_by, -> user {
     joins(:enrollments).where(enrollments: { user_id: user.id })
       .order('enrollments.created_at desc')
-  end
+  }
 
   private
 

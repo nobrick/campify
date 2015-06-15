@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :enrollments
   has_many :showtimes, through: :enrollments
   has_many :votes, class_name: 'CampusVote'
+  has_many :lotteries
   before_save -> { self.university = nil if self.university_id == -1 } 
 
   validates :username,
@@ -22,6 +23,8 @@ class User < ActiveRecord::Base
   validates :bio, length: { maximum: 140 }
   validates :uid, uniqueness: { scope: :provider }, if: 'uid.present?'
   validates :university_id, presence: true, on: :create
+
+  scope :brief_names_text, -> { all.map { |u| "#{u.nickname} @#{u.username}" }.join(' | ') }
 
   def self.find_by_omniauth(auth)
     find_by(provider: auth.provider, uid: auth.uid)

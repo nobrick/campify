@@ -19,4 +19,11 @@ module Op::ShowtimesHelper
       content
     end
   end
+
+  # Set @ballot and @lottery_event for showtimes/show view
+  # instead of setting them in multiple controllers
+  def set_default_instances
+    @ballot ||= @showtime.ballot || CampusBallot.new
+    @lottery_event ||= @showtime.lottery_event || LotteryEvent.new
+  end
 end

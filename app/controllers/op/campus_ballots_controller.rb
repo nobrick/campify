@@ -14,6 +14,7 @@ class Op::CampusBallotsController < ApplicationController
       if @ballot.save
         format.html { redirect_to_showtime '成功发起投票。' }
       else
+        flash[:alert] = '发起投票失败。'
         format.html { render 'op/showtimes/show' }
       end
     end
@@ -25,6 +26,7 @@ class Op::CampusBallotsController < ApplicationController
       if @ballot.update(ballot_params)
         format.html { redirect_to_showtime '成功更新投票。' }
       else
+        flash[:alert] = '更新投票失败。'
         format.html { render 'op/showtimes/show' }
       end
     end
@@ -47,7 +49,7 @@ class Op::CampusBallotsController < ApplicationController
   end
 
   def set_ballot
-    @ballot = CampusBallot.find_by(showtime_id: @showtime.id)
+    @ballot = @showtime.ballot
   end
 
   def ballot_params

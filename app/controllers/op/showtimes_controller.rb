@@ -14,7 +14,6 @@ class Op::ShowtimesController < ApplicationController
   # GET /op/showtimes/1
   # GET /op/showtimes/1.json
   def show
-    @ballot = @showtime.ballot || CampusBallot.new
   end
 
   # GET /op/showtimes/new

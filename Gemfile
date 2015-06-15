@@ -70,3 +70,5 @@ gem 'redis-objects'
 gem 'wechat-rails', git:'https://github.com/skinnyworm/wechat-rails'
 gem 'omniauth-wechat-oauth2'
 gem 'connection_pool'
+gem 'sidekiq'
+gem 'sinatra', :require => nil
