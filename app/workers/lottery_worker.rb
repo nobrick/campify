@@ -1,18 +1,15 @@
 class LotteryWorker
   include Sidekiq::Worker
-  sidekiq_options :retry => 3
+  sidekiq_options :retry => 5
 
   def perform(lottery_event_id)
     event = LotteryEvent.find_by(id: lottery_event_id)
-    return false if event.nil?
-    logger.info "event_id: #{lottery_event_id}, showtime_id: #{event.showtime.id}"
-    case event.lottery_rule
-    when 'enrollment'
-      logger.info 'enrollment'
-      logger.info event.showtime.enrollees.map { |u| "#{u.nickname} @#{u.username}" }.join(' | ')
-    when 'ballot'
-      logger.info 'ballot'
-      logger.info event.showtime.ballot.users_with_votes_for_own_uni(university).map { |u| "#{u.nickname} @#{u.username}" }.join(' | ')
-    end
+    return if event.nil? || event.drawn? || event.job_id.value != jid
+
+    showtime = event.showtime
+    logger.info "event_id: #{lottery_event_id}, showtime_id: #{showtime.id} rule: #{event.lottery_rule}"
+    logger.info event.draw ? 'DRAW' : 'NOT DRAW'
+    logger.info "winners: #{event.winners.brief_names_text}"
+    logger.info "last_f_code: #{event.last_failure_code.value}"
   end
 end

@@ -34,10 +34,12 @@ class Op::LotteryEventsController < ApplicationController
 
   # DELETE /op/showtimes/1/lottery_event
   def destroy
-    @lottery_event.destroy
     respond_to do |format|
-      format.html do
-        redirect_to_showtime '成功取消抽奖。'
+      if @lottery_event.drawn?
+        format.html { redirect_to_showtime '取消抽奖失败，抽奖已结束。' }
+      else
+        @lottery_event.destroy
+        format.html { redirect_to_showtime '成功取消抽奖。' }
       end
     end
   end

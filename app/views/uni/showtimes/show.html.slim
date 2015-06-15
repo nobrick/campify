@@ -27,6 +27,7 @@
                 span.badge = university.votes_count_for(@showtime)
                 = university.name
           - else
+            p 你最希望本活动在哪所学校举办？
             ul.list-group
               - University.all.each do |university|
                 = link_to university.name, uni_showtime_vote_path(showtime_id: @showtime.id, vote: { university_id: university.id }), \

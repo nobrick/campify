@@ -42,7 +42,7 @@ zh-CN:
       lottery_event:
         showtime: '活动场次'
         draws_at: '抽奖时间'
-        lottery_rule: '抽奖方式'
+        lottery_rule: '抽奖资格获得方式'
         prizes_num: '奖品数量'
         prize_type: '奖品类型'
   sign_in: '登录'
