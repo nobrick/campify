@@ -22,6 +22,14 @@ class CampusBallot < ActiveRecord::Base
     University.find votes_rank.revrangebyscore(score, score)
   end
 
+  def enabled?
+    persisted? && !expired? && expires_at > Time.now
+  end
+
+  def disabled?
+    !enabled?
+  end
+
   # def university_ids_with_votes_count
     # votes_rank.members(with_scores: true)
   # end
@@ -34,5 +42,9 @@ class CampusBallot < ActiveRecord::Base
 
   def reset_votes_rank
     votes_rank.clear
+  end
+
+  def default_values
+    expired = false if expired.nil?
   end
 end

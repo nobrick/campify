@@ -12,9 +12,9 @@ class Op::CampusBallotsController < ApplicationController
 
     respond_to do |format|
       if @ballot.save
-        format.html { redirect_to_showtime '成功发起投票。' }
+        format.html { redirect_to_showtime '成功发起竞投。' }
       else
-        flash[:alert] = '发起投票失败。'
+        flash[:alert] = '发起竞投失败。'
         format.html { render 'op/showtimes/show' }
       end
     end
@@ -24,9 +24,9 @@ class Op::CampusBallotsController < ApplicationController
   def update
     respond_to do |format|
       if @ballot.update(ballot_params)
-        format.html { redirect_to_showtime '成功更新投票。' }
+        format.html { redirect_to_showtime '成功更新竞投。' }
       else
-        flash[:alert] = '更新投票失败。'
+        flash[:alert] = '更新竞投失败。'
         format.html { render 'op/showtimes/show' }
       end
     end
@@ -34,10 +34,10 @@ class Op::CampusBallotsController < ApplicationController
 
   # DELETE /op/showtimes/1/ballot
   def destroy
-    @ballot.destroy
+    @ballot.update_attribute(:expired, true)
     respond_to do |format|
       format.html do
-        redirect_to_showtime '成功删除投票。'
+        redirect_to_showtime '成功关闭竞投。'
       end
     end
   end
@@ -54,7 +54,7 @@ class Op::CampusBallotsController < ApplicationController
 
   def ballot_params
     params.require(:showtime_id)
-    params.require(:ballot).permit(:expires_at)
+    params.require(:ballot).permit(:expires_at, :expired)
   end
 
   def redirect_to_showtime(message)

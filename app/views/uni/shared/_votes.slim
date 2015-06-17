@@ -1,0 +1,4 @@
+- University.all.each do |university|
+  li.list-group-item
+    span.badge = university.votes_count_for(showtime)
+    = university.name

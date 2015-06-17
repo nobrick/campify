@@ -20,12 +20,13 @@
         .panel-heading
           ' 校园竞投
         .panel-body
+          - disabled = @showtime.ballot.disabled?
           - if current_uni_user.try(:vote_for?, @showtime)
-            p 感谢您参与投票。当前投票结果：
-            - University.all.each do |university|
-              li.list-group-item
-                span.badge = university.votes_count_for(@showtime)
-                = university.name
+            p 感谢您参与投票。#{"投票已结束。" if disabled}当前投票结果：
+            = render 'uni/shared/votes', showtime: @showtime
+          - elsif disabled
+            p 投票已经结束。当前投票结果：
+            = render 'uni/shared/votes', showtime: @showtime
           - else
             p 你最希望本活动在哪所学校举办？
             ul.list-group

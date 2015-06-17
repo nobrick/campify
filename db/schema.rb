@@ -11,18 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612144231) do
+ActiveRecord::Schema.define(version: 20150616232824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "campus_ballots", force: :cascade do |t|
-    t.integer  "showtime_id", null: false
-    t.datetime "expires_at",  null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "showtime_id",                 null: false
+    t.datetime "expires_at",                  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "expired",     default: false
   end
 
+  add_index "campus_ballots", ["expired"], name: "index_campus_ballots_on_expired", using: :btree
   add_index "campus_ballots", ["expires_at"], name: "index_campus_ballots_on_expires_at", using: :btree
   add_index "campus_ballots", ["showtime_id"], name: "index_campus_ballots_on_showtime_id", unique: true, using: :btree
 

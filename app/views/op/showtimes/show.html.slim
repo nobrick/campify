@@ -55,31 +55,32 @@
               ' 当前报名用户：
             = @showtime.enrollees.brief_names_text
   .panel.panel-success
-    - ballot_on = @ballot.persisted?
     .panel-heading
       ' 竞投管理
-      - if ballot_on
+      - if @ballot.enabled?
         .pull-right
-          = link_to '取消竞投', op_showtime_ballot_path(@showtime), \
-            data: { confirm: '取消竞投将删除当前所有投票！你确实要继续吗？' }, method: :delete, class: 'btn-sm btn-danger'
+            = link_to '关闭竞投', op_showtime_ballot_path(@showtime), \
+              data: { confirm: '你确实要关闭竞投吗？' }, method: :delete, class: 'btn-sm btn-danger'
     .panel-body
       p
         strong
           ' 当前竞投状态：
-        - if ballot_on
-          ' 竞投进行中（#{l @ballot.expires_at} 过期）
+        - if @ballot.persisted?
+          - if @ballot.enabled?
+            ' 竞投进行中（#{l @ballot.expires_at} 过期）
+          - else
+            ' 竞投已结束
+            = @ballot.expired? ? '（手动停用）' : "（#{l @ballot.expires_at} 过期）"
           .row
             .col-md-4
               ul.list-group
-                - University.all.each do |university|
-                  li.list-group-item
-                    span.badge = university.votes_count_for(@showtime)
-                    = university.name
+                = render 'uni/shared/votes', showtime: @showtime
           - @ballot.most_voted_universities.each do |university|
             p
               strong
                 ' 投票给 #{university.name} 且母校为该校的用户：
-              = @ballot.users_with_votes_for_own_uni(university).brief_names_text
+              - names_text = @ballot.users_with_votes_for_own_uni(university).brief_names_text
+              = names_text.present? ? names_text : '无'
         - else
           ' 竞投未开启
       - if @ballot.present?
@@ -87,9 +88,12 @@
           = render 'shared/error_messages', form: f
           .well
             .field.form-group
-              => f.label :expires_at
+              = f.label :expires_at
               br
               = f.datetime_select :expires_at, class: 'form-control'
+            .field.form-group
+              => f.label :expired
+              = f.check_box :expired
             .actions
               = f.submit nil, class: 'btn btn-success'
 
@@ -117,10 +121,10 @@
             = @lottery_event.lottery_rule
           - failue_code = @lottery_event.last_failure_code.value
           - if failue_code
-            p
+            p.bg-danger
               strong
                 ' 上次抽奖失败错误代码：
-              = failue_code
+              = failue_code.upcase
         - else
           ' 抽奖未开启
       - if @lottery_event.present?

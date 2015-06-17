@@ -64,8 +64,8 @@ RSpec.describe Op::CampusBallotsController, type: :controller do
       before { ballot }
 
       it 'destroys the requested ballot' do
-        expect { delete :destroy, valid_params }
-          .to change(CampusBallot, :count).by -1
+        delete :destroy, valid_params
+        expect(ballot.reload.expired).to eq true
       end
     end
   end

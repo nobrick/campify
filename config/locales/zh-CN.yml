@@ -39,6 +39,7 @@ zh-CN:
         location: '地址'
       campus_ballot:
         expires_at: '过期时间'
+        expired: '手动关闭竞投'
       lottery_event:
         showtime: '活动场次'
         draws_at: '抽奖时间'

@@ -8,6 +8,7 @@ class CampusVote < ActiveRecord::Base
   validates :user, presence: true
   validates :ballot, presence: true, uniqueness: { scope: :user }
   validates :university, presence: true
+  validate :check_ballot_enabled
 
   private
 
@@ -18,5 +19,9 @@ class CampusVote < ActiveRecord::Base
   def set_vote_for_own_uni_cache
     self.vote_for_own_uni = (user.university.try(:id) == university.id)
     true
+  end
+
+  def check_ballot_enabled
+    errors.add(:base, '竞投已过期或停用') if ballot.disabled?
   end
 end

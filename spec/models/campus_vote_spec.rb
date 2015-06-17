@@ -3,11 +3,17 @@ require 'rails_helper'
 RSpec.describe CampusVote, type: :model do
   let(:university) { create :university }
   let(:ballot) { create :campus_ballot }
+  let(:ballot_disabled) { create :campus_ballot, expired: true }
   let(:user) { create :user }
 
   it 'creates campus vote model' do
     vote = create_vote
     expect(vote).to be_persisted
+  end
+
+  it 'cannot create votes on disabled ballot' do
+    expect { create_vote(ballot_id: ballot_disabled.id) }
+      .to raise_error ActiveRecord::RecordInvalid
   end
 
   describe 'redis counter cache' do
