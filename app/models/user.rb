@@ -19,7 +19,9 @@ class User < ActiveRecord::Base
     uniqueness: { case_sensitive: false },
     length: { in: 3..18 },
     format: { with: /\A(?![_\d])(?!.*_{2})[a-zA-Z0-9_]+(?<!_)\z/ }
-  validates :password, length: { in: 6..128 }
+  validates :password, presence: true, length: { in: 6..128 }, on: :create
+  validates :password, length: { in: 6..128 }, on: :update, allow_blank: true
+
   validates :bio, length: { maximum: 140 }
   validates :uid, uniqueness: { scope: :provider }, if: 'uid.present?'
   validates :university_id, presence: true, on: :create
