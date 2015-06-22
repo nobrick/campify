@@ -15,11 +15,10 @@ class User < ActiveRecord::Base
   before_save -> { self.university = nil if self.university_id == -1 } 
 
   validates :username,
-    presence: true,
     uniqueness: { case_sensitive: false },
     length: { in: 3..18 },
     format: { with: /\A(?![_\d])(?!.*_{2})[a-zA-Z0-9_]+(?<!_)\z/ }
-  validates :password, presence: true, length: { in: 6..128 }, on: :create
+  validates :password, length: { in: 6..128 }, on: :create
   validates :password, length: { in: 6..128 }, on: :update, allow_blank: true
 
   validates :bio, length: { maximum: 140 }
