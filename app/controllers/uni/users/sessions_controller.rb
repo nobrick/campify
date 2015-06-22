@@ -1,5 +1,4 @@
 class Uni::Users::SessionsController < Devise::SessionsController
-  layout 'layouts/panel_grid'
   before_filter :authorize_wechat, only: [ :new ]
   before_filter :finish_wechat_sign_up, only: [ :new ]
 # before_filter :configure_sign_in_params, only: [ :create ]

@@ -1,37 +1,23 @@
-- content_for :panel_heading
-  = registration_title
-- content_for :panel_body
-  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-    = render 'shared/error_messages', form: f
-    .form-group
-      = f.label :email
-      br
-      = f.email_field :email, autofocus: true
-    .form-group
-      = f.label :username, '用户名'
-      br
-      = f.text_field :username
-    .form-group
-      = f.label :nickname, '昵称'
-      br
-      = f.text_field :nickname
-    .form-group
-      = f.label :university_id, '所在学校'
-      br
-      /= f.collection_select(:university_id, University.all, :id, :name, include_blank: true)
-      = f.select(:university_id, University.all.collect { |u| [ u.name, u.id ] }.push([ '其它', -1 ]), prompt: true)
-    .form-group
-      = f.label :password, '密码'
-      br
-      = f.password_field :password, autocomplete: 'off'
-    .form-group
-      = f.label :password_confirmation, '密码确认'
-      br
-      = f.password_field :password_confirmation, autocomplete: 'off'
-    .form-group
-      = f.label :bio, '个性签名'
-      br
-      = f.text_field :bio
-    div
-      = f.submit registration_title, class: 'btn btn-success'
-  = render 'uni/users/shared/links' unless wechat_request? && wechat_session_set?
+- content_for :container
+  .signup-page
+    = render 'shared/header_sign_in_or_up', active: :sign_up
+    = render 'shared/error_messages', model: resource
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), class: 'form-horizontal') do |f|
+      .form-group
+        = f.email_field :email, autofocus: true, placeholder: '你的邮箱', class: 'control-group t-input'
+      .form-group
+        = f.text_field :username, placeholder: '用户名', class: 'control-group t-input'
+      .form-group
+        = f.text_field :nickname, placeholder: '昵称', class: 'control-group t-input'
+      .form-group
+        = f.select(:university_id, University.all.collect { |u| [ u.name, u.id ] }.push([ '其它', -1 ]), prompt: '请选择所在的学校', class: 'control-group t-input')
+      .form-group
+        = f.password_field :password, autocomplete: 'off', placeholder: '密码', class: 'control-group t-input'
+      .form-group
+        = f.password_field :password_confirmation, autocomplete: 'off', placeholder: '密码确认', class: 'control-group t-input'
+      /.form-group
+        /= f.label :bio, '个性签名'
+        /br
+        /= f.text_field :bio
+      div
+        = f.submit registration_title, class: 'btn btn-success t-input'

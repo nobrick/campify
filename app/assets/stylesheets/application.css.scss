@@ -6,19 +6,20 @@
 
 @import 'font-awesome';
 @import 'bootstrap';
+@import 'global';
 
-.field_with_errors {
-  display: inline;
-  color: #e84141;
+/* Elements style */
+body {
+  padding-top: 65px;
+  color: #555555;
 }
 
-.t-navbar-button {
-  color: red;
-  opacity: 0.5;
-  font-size: 1.4em;
-  &:hover {
-    color: red;
-    opacity: 1;
+a {
+  color: #555555;
+  text-decoration: none;
+  &:hover, &:focus {
+    color: black;
+    text-decoration: none;
   }
 }
 
@@ -26,19 +27,132 @@
   border-radius: 0;
 }
 
-body {
-  padding-top: 65px;
+input[type=checkbox] {
+  margin-right: 5px;
 }
 
-.t-op-nav-links {
-  margin: 2px 0px 23px 0px;
-  .t-btn-plus {
+.t-input {
+  box-shadow: none;
+  border: 1px solid #cccccc;
+  &:focus {
+    outline: medium none;
+    border-color: rgba(82, 168, 236, 0.8);
+  }
+}
+
+/* App style */
+.field_with_errors {
+  display: inline;
+  color: #e84141;
+}
+
+#brand_navbar {
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  .logo_brand {
+    color: $logoRed;
+    &:hover {
+      color: darken($logoRed, 12);
+    }
+  }
+  .navbar-button {
+    color: $darkGreen;
+    font-size: 1.4em;
+    &:hover {
+      color: darken($darkGreen, 12);
+    }
+  }
+}
+
+.op-nav-links {
+  margin: 7px 0px 12px 0px;
+  .btn-plus {
     color: red;
     opacity: 0.5;
   }
 
-  .t-btn-icon {
-    color: #48b2d8;
-    opacity: 1;
+  .btn-group {
+    margin-right: 4px;
+    .btn-icon {
+      color: #48b2d8;
+      opacity: 1;
+    }
+  }
+}
+
+.showtime-list {
+  list-style-type: none;
+  padding: 0 40px 0;
+  li {
+    &:first-of-type {
+      h2 {
+        margin-top: 15px;
+      }
+    }
+    border-bottom: 1px dashed #d9d9d9;
+    &:last-of-type {
+      border-bottom: none;
+    }
+    margin: 0 0 5px;
+    padding-bottom: 10px;
+    position: relative;
+    width: 100%;
+    word-wrap: break-word;
+    line-height : 20px;
+  }
+}
+
+.header-sign-in-or-up {
+  .logo {
+    background: white;
+    margin: 0;
+    padding: 0;
+    h1 {
+      color: $logoRed;
+    }
+  }
+  .title {
+    border-bottom: 1px solid #eeeeee;
+    color: #b1b1b1;
+    margin: 20px auto 30px;
+    b {
+      margin: 0 14px;
+    }
+    a {
+      color: #b1b1b1;
+      &.active {
+        color: #555555;
+      }
+    }
+    span {
+      background: white none repeat scroll 0 0;
+      padding: 0 30px;
+      position: relative;
+      top: 10px;
+    }
+  }
+}
+
+.login-page, .signup-page {
+  text-align: center;
+  padding: 1px 0 45px;
+  form {
+    border-bottom: 1px solid #eeeeee;
+    margin: 0 auto 25px;
+    padding-bottom: 40px;
+    width: 300px;
+    .t-input {
+      height: 44px;
+      padding: 4px 12px;
+    }
+    .t-input, select {
+      width: calc(100% - 44px);
+    }
+    .foot-control-group {
+      text-align: left;
+      width: 100%;
+      margin-top: 14px;
+      padding: 0 22px;
+    }
   }
 }

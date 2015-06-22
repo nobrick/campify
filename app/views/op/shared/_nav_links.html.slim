@@ -1,6 +1,6 @@
-.t-op-nav-links
+.op-nav-links
   .btn-group
-    = link_to fa_icon('paper-plane', class: 't-btn-icon') + ' 活动主题', op_shows_path, class: 'btn btn-default'
+    = link_to fa_icon('paper-plane', class: 'btn-icon') + ' 活动主题', op_shows_path, class: 'btn btn-default'
     button.btn.btn-default.dropdown-toggle[type="button" data-toggle="dropdown" aria-expanded="false"]
       span.caret
       span.sr-only
@@ -11,7 +11,7 @@
       li
         = link_to '活动主题列表', op_shows_path
   .btn-group
-    = link_to fa_icon('film', class: 't-btn-icon') + ' 活动场次', op_showtimes_path, class: 'btn btn-default'
+    = link_to fa_icon('film', class: 'btn-icon') + ' 活动场次', op_showtimes_path, class: 'btn btn-default'
     button.btn.btn-default.dropdown-toggle[type="button" data-toggle="dropdown" aria-expanded="false"]
       span.caret
       span.sr-only
@@ -22,7 +22,7 @@
       li
         = link_to '活动场次列表', op_showtimes_path
   .btn-group
-    = link_to fa_icon('university', class: 't-btn-icon') + ' 大学条目', op_universities_path, class: 'btn btn-default'
+    = link_to fa_icon('university', class: 'btn-icon') + ' 大学条目', op_universities_path, class: 'btn btn-default'
     button.btn.btn-default.dropdown-toggle[type="button" data-toggle="dropdown" aria-expanded="false"]
       span.caret
       span.sr-only
@@ -33,11 +33,11 @@
       li
         = link_to '大学条目列表', op_universities_path
 
-  /= link_to fa_icon('users', class: 't-btn-icon') + ' 投票管理', '#', class: 'btn btn-default'
+  /= link_to fa_icon('users', class: 'btn-icon') + ' 投票管理', '#', class: 'btn btn-default'
 
   .btn-group
     button.btn.btn-default.dropdown-toggle[type="button" data-toggle="dropdown" aria-expanded="false"]
-      = content_tag :span, fa_icon('plus', class: 't-btn-plus')
+      = content_tag :span, fa_icon('plus', class: 'btn-plus')
       span.sr-only
         | Toggle Dropdown
     ul.dropdown-menu[role="menu"]
