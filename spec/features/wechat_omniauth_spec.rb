@@ -85,10 +85,10 @@ RSpec.feature 'Wechat omniauth', js: false do
   end
 
   def fill_in_and_sign_up
-    fill_in 'Email', with: 'johndoe@example.com'
+    fill_in '邮箱', with: 'johndoe@example.com'
     fill_in '密码', with: '123456'
     fill_in '密码确认', with: '123456'
-    select '其它', from: '所在学校'
+    page.find('#uni_user_university_id').select '其它'
     click_button '完善资料并完成注册'
   end
 
