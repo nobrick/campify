@@ -20,6 +20,29 @@ RSpec.feature 'Wechat omniauth', js: false do
   context 'Wechat omniauth success' do
     before { set_wechat_environment(nickname: nickname) }
 
+    context 'After user submit invalid info' do
+      background do
+        # Input nothing but submit
+        visit_wechat_omniauth
+        click_button '完善资料并完成注册'
+      end
+
+      scenario 'render correctly for fallback page' do
+        expect_page_to_be_wechat_sign_up
+      end
+
+      scenario 'auto sign in by signing up on fallback page' do
+        # Sign up on fallback page
+        fill_in_and_sign_up
+        expect_signed_in
+
+        # Auto sign in
+        click_on '注销'
+        visit_wechat_omniauth
+        expect_signed_in
+      end
+    end
+
     context 'To bind wechat by visiting omniauth page' do
       background do
         visit_wechat_omniauth
