@@ -23,6 +23,20 @@ a {
   }
 }
 
+h1, .h1 {
+  font-size: 30px;
+  @media (min-width: $screen-sm-min) {
+    font-size: 36px;
+  }
+}
+
+h2, .h2 {
+  font-size: 22px;
+  @media (min-width: $screen-sm-min) {
+    font-size: 30px;
+  }
+}
+
 .alert {
   border-radius: 0;
 }
