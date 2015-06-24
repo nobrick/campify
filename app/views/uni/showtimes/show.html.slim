@@ -1,35 +1,31 @@
 - content_for :row
   .col-md-6.col-md-offset-3
-    h1.text-center = @showtime.title
+    h1 = @showtime.title
     h4 = @showtime.description
     - if @showtime.enrollable?
-      .panel.panel-success
-        .panel-heading
-          ' 活动报名
-        .panel-body
-          .text-center
-            - if enrolled_in?(@showtime)
-              h3
-                | 已报名
-              = link_to '取消报名', [ :uni, enrollment_for(@showtime) ], method: :delete
-            - else
-              = link_to '报名', uni_enrollments_path(enrollment: { showtime_id: @showtime.id }), \
-              class: 'btn-lg btn-danger', method: :post
+      h4.title
+       span 活动报名
+      .text-center
+        - if enrolled_in?(@showtime)
+          h3
+            | 已报名
+          = link_to '取消报名', [ :uni, enrollment_for(@showtime) ], method: :delete
+        - else
+          = link_to '报名', uni_enrollments_path(enrollment: { showtime_id: @showtime.id }), \
+          class: 'btn-lg btn-danger', method: :post
     - if @showtime.ballot
-      .panel.panel-success
-        .panel-heading
-          ' 校园竞投
-        .panel-body
-          - disabled = @showtime.ballot.disabled?
-          - if current_uni_user.try(:vote_for?, @showtime)
-            p 感谢您参与投票。#{"投票已结束。" if disabled}当前投票结果：
-            = render 'uni/shared/votes', showtime: @showtime
-          - elsif disabled
-            p 投票已经结束。当前投票结果：
-            = render 'uni/shared/votes', showtime: @showtime
-          - else
-            p 你最希望本活动在哪所学校举办？
-            ul.list-group
-              - University.all.each do |university|
-                = link_to university.name, uni_showtime_vote_path(showtime_id: @showtime.id, vote: { university_id: university.id }), \
-                class: 'list-group-item', method: :post
+      h4.title
+        span 校园竞投
+      - disabled = @showtime.ballot.disabled?
+      - if current_uni_user.try(:vote_for?, @showtime)
+        p 感谢您参与投票。#{"投票已结束。" if disabled}当前投票结果：
+        = render 'uni/shared/votes', showtime: @showtime
+      - elsif disabled
+        p 投票已经结束。当前投票结果：
+        = render 'uni/shared/votes', showtime: @showtime
+      - else
+        p 你最希望本活动在哪所学校举办？
+        ul.list-group
+          - University.all.each do |university|
+            = link_to university.name, uni_showtime_vote_path(showtime_id: @showtime.id, vote: { university_id: university.id }), \
+            class: 'list-group-item', method: :post

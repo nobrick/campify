@@ -125,25 +125,27 @@ input[type=checkbox] {
       color: $logoRed;
     }
   }
-  .title {
-    border-bottom: 1px solid #eeeeee;
+}
+
+.title {
+  text-align: center;
+  border-bottom: 1px solid #eeeeee;
+  color: #b1b1b1;
+  margin: 20px auto 30px;
+  b {
+    margin: 0 14px;
+  }
+  a {
     color: #b1b1b1;
-    margin: 20px auto 30px;
-    b {
-      margin: 0 14px;
+    &.active {
+      color: #555555;
     }
-    a {
-      color: #b1b1b1;
-      &.active {
-        color: #555555;
-      }
-    }
-    span {
-      background: white none repeat scroll 0 0;
-      padding: 0 30px;
-      position: relative;
-      top: 10px;
-    }
+  }
+  span {
+    background: white none repeat scroll 0 0;
+    padding: 0 30px;
+    position: relative;
+    top: 10px;
   }
 }
 
