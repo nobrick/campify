@@ -1,10 +1,4 @@
 - content_for :grid
-  ul.showtime-list
-    - @showtimes.each do |showtime|
-      li
-        h2
-          = link_to showtime.title, [ :uni, showtime ]
-        p
-          = showtime.description
+  = render 'uni/shared/showtimes', showtimes: @showtimes
   .uni-showtimes-index-links
     = link_to '管理入口', op_shows_path if current_uni_user.try(:admin?)

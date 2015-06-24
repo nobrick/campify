@@ -2,10 +2,8 @@
   - if @showtimes_enrolled.present?
     h4.title
       span 我报名的活动
-    ul.showtime-list
-      = render partial: 'uni/shared/showtime', collection: @showtimes_enrolled, cache: true
+    = render 'uni/shared/showtimes', showtimes: @showtimes_enrolled
   - if @showtimes_voted.present?
     h4.title
       span 我参与投票的活动
-    ul.showtime-list
-      = render partial: 'uni/shared/showtime', collection: @showtimes_voted, cache: true
+    = render 'uni/shared/showtimes', showtimes: @showtimes_voted
