@@ -1,9 +1,11 @@
 - content_for :grid
-  h4.text-center 我的活动
-  ul.showtime-list
-    - @showtimes.each do |showtime|
-      li
-        h2
-          = link_to showtime.title, [ :uni, showtime ]
-        p
-          = showtime.description
+  - if @showtimes_enrolled.present?
+    h4.title
+      span 我报名的活动
+    ul.showtime-list
+      = render partial: 'uni/shared/showtime', collection: @showtimes_enrolled, cache: true
+  - if @showtimes_voted.present?
+    h4.title
+      span 我参与投票的活动
+    ul.showtime-list
+      = render partial: 'uni/shared/showtime', collection: @showtimes_voted, cache: true

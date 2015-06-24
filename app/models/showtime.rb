@@ -23,6 +23,10 @@ class Showtime < ActiveRecord::Base
     joins(:enrollments).where(enrollments: { user_id: user.id })
       .order('enrollments.created_at desc')
   }
+  scope :voted_by, -> user {
+    joins(ballot: :votes).where(campus_votes: { user_id: user.id })
+      .order('campus_votes.created_at desc')
+  }
 
   private
 

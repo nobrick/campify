@@ -77,4 +77,22 @@ RSpec.describe Showtime, type: :model do
       expect(Showtime.enrolled_by(user)).to eq [ showtimes[1], showtimes[0] ]
     end
   end
+
+  describe '.voted_by(user)' do
+    let!(:showtimes) do
+      3.times.collect do
+        create(:showtime).tap { |s| create :campus_ballot, showtime_id: s.id }
+      end
+    end
+    let(:university) { University.first }
+    let(:another_user) { create :user }
+
+    it 'lists showtimes voted by the user ordered by vote time' do
+      user.vote_for(showtimes[0], university)
+      user.vote_for(showtimes[1], university)
+      another_user.vote_for(showtimes[2], university)
+      expect(Showtime.voted_by(another_user)).to eq [ showtimes[2] ]
+      expect(Showtime.voted_by(user)).to eq [ showtimes[1], showtimes[0] ]
+    end
+  end
 end
