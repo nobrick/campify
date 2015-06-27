@@ -6,4 +6,9 @@ module Uni::Users::RegistrationsHelper
       '注册'
     end
   end
+
+  def tab_link_to(name, identifier, options = {})
+    options.merge!({ 'aria-controls' => identifier, 'data-toggle' => 'tab', 'role' => 'tab' })
+    link_to name, "##{identifier}", options
+  end
 end
