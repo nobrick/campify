@@ -152,7 +152,7 @@ input[type=checkbox] {
     margin: 0;
     background: white;
     @include background-image(url("/images/fungo.svg"));
-    background-position: center -25px;
+    background-position: center 0;
     background-repeat: no-repeat;
     p {
       letter-spacing: 2px;
