@@ -12,7 +12,7 @@
           = link_to '取消报名', [ :uni, enrollment_for(@showtime) ], method: :delete
         - else
           = link_to '报名', uni_enrollments_path(enrollment: { showtime_id: @showtime.id }), \
-          class: 'btn-lg btn-danger', method: :post
+          class: 'btn-lg btn-blue btn-simple-letters btn-enrollment', method: :post
     - if @showtime.ballot
       h4.title
         span 校园竞投
