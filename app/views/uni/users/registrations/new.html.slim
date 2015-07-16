@@ -21,6 +21,6 @@
         /= f.text_field :bio
       div
         - if wechat_request? && wechat_session_set?
-          = f.submit '完善资料并完成注册', class: 'btn qbtn-blue t-input'
+          = f.submit '完善资料并完成注册', class: 'btn btn-blue t-input'
         - else
           = f.submit '注册', class: 'btn btn-blue btn-simple-letters t-input'
