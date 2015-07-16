@@ -4,9 +4,11 @@
  *= require_self
  */
 
+@import 'global';
 @import 'font-awesome';
 @import 'bootstrap';
-@import 'global';
+@import 'bourbon';
+@import 'fonts';
 
 /* Elements style */
 body {
@@ -54,6 +56,25 @@ input[type=checkbox] {
   }
 }
 
+.btn-blue {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s;
+  border-radius: 25px;
+  color: $alphaWhite;
+  background-color: #049cdb;
+  border: none;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-align: center;
+  &:hover, &:focus {
+    color: $alphaWhite;
+    background-color: #3dbcf5;
+  }
+}
+
+.btn-simple-letters {
+  font-size: 18px;
+}
+
 /* App style */
 .field_with_errors {
   display: inline;
@@ -61,19 +82,28 @@ input[type=checkbox] {
 }
 
 #brand_navbar {
-  background: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  background-color: #36383A;
+  /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);*/
   .logo_brand {
-    color: $logoRed;
+    color: $alphaWhite;
+    line-height: 21px;
+
+    font-family: "orbitron-medium";
     &:hover {
-      color: darken($logoRed, 12);
+      color: white;
     }
   }
-  .navbar-button {
-    color: $darkGreen;
-    font-size: 1.4em;
+  a {
+    color: $alphaWhite;
     &:hover {
-      color: darken($darkGreen, 12);
+      color: #36a1de;
+    }
+  }
+  .navbar-toggle-button {
+    color: $alphaWhite;
+    font-size: 124%;
+    &:hover {
+      color: white;
     }
   }
 }
@@ -118,11 +148,19 @@ input[type=checkbox] {
 
 .header-sign-in-or-up {
   .logo {
-    background: white;
+    padding: 236px 0 0 0;
     margin: 0;
-    padding: 0;
+    background: white;
+    @include background-image(url("/images/fungo.svg"));
+    background-position: center -25px;
+    background-repeat: no-repeat;
+    p {
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
     h1 {
       color: $logoRed;
+      font-family: "orbitron-medium";
     }
   }
 }
@@ -131,7 +169,7 @@ input[type=checkbox] {
   text-align: center;
   border-bottom: 1px solid #eeeeee;
   color: #b1b1b1;
-  margin: 20px auto 30px;
+  margin: 10px auto 30px;
   b {
     margin: 0 14px;
   }

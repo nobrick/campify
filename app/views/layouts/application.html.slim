@@ -8,7 +8,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
-    nav#brand_navbar.navbar.navbar-default.navbar-fixed-top[role="navigation"]
+    nav#brand_navbar.navbar.navbar-inverse.navbar-fixed-top[role="navigation"]
       .container-fluid
         .navbar-header
           a.navbar-brand.logo_brand[href="/"]
@@ -17,7 +17,8 @@ html
           a.visible-xs-inline-block.btn.navbar-btn.pull-right.nav_toggle[type="button" data-toggle="collapse" data-target="#navbar-collapse"]
             span.sr-only
               | Toggle navigation
-            = fa_icon('magic', class: 'navbar-button')
+            span.fa-icon
+              = fa_icon('magic', class: 'navbar-toggle-button')
         #navbar-collapse.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
             li
