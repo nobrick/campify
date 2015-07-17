@@ -25,8 +25,7 @@ Before starting the server, you may need to run `bundle install` to install requ
 bin/rails server
 ```
 
-## Contribution
-### Test
+## Testing
 ```
 bin/rake exec guard
 ```
