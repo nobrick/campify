@@ -86,12 +86,12 @@ input[type=checkbox] {
   background-color: #36383A;
   /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);*/
   .logo_brand {
-    color: $alphaWhite;
+    color: lighten(#3dbcf5, 10%);
     line-height: 21px;
 
     font-family: "orbitron-medium";
     &:hover {
-      color: white;
+      color: lighten(#3dbcf5, 35%);
     }
   }
   a {
@@ -103,8 +103,8 @@ input[type=checkbox] {
   .navbar-toggle-button {
     color: $alphaWhite;
     font-size: 124%;
-    &:hover {
-      color: white;
+    &:hover, &:focus {
+      color: #3dbcf5;
     }
   }
 }
