@@ -15,8 +15,8 @@ postgres -D /usr/local/var/postgres
 ```
 ### 2. Set database.yml and secret.yml
 ```
-cp config/database.yml.example to config/database.yml.rb
-cp config/secret.yml.example to config/secret.yml.rb
+cp config/database.yml{.example,}
+cp config/secret.yml{.example,}
 ```
 Remember to *change* passwords and secret tokens in the files above for security reasons.
 ### 3. Start the server
@@ -26,6 +26,7 @@ bin/rails server
 ```
 
 ## Testing
+Run the following command:
 ```
 bin/rake exec guard
 ```
