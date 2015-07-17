@@ -57,6 +57,7 @@ input[type=checkbox] {
 }
 
 .btn-blue {
+  display: inline-block;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s;
   border-radius: 25px;
   color: $alphaWhite;
@@ -212,6 +213,10 @@ input[type=checkbox] {
 }
 
 .btn-enrollment {
-  display: inline-block;
   padding: 12px 70px;
+}
+
+.btn-save-settings {
+  padding: 9px 44px;
+  border-radius: 6px;
 }
